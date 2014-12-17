@@ -1,0 +1,39 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/eye.png</file>
+        <file>icons/newlayer.png</file>
+        <file>icons/trash.png</file>
+        <file>cursors/cross.png</file>
+        <file>cursors/move.png</file>
+        <file>icons/bevel-join.png</file>
+        <file>icons/flat-cap.png</file>
+        <file>icons/miter-join.png</file>
+        <file>icons/round-cap.png</file>
+        <file>icons/round-join.png</file>
+        <file>icons/square-cap.png</file>
+        <file>icons/black.png</file>
+        <file>icons/nofill.png</file>
+        <file>icons/pattern.png</file>
+        <file>icons/white.png</file>
+        <file>icons/color-picker.png</file>
+        <file>tools/rect.png</file>
+        <file>tools/ellipse.png</file>
+        <file>icons/inside.png</file>
+        <file>icons/middle.png</file>
+        <file>icons/outside.png</file>
+        <file>tools/line.png</file>
+        <file>icons/selection.png</file>
+        <file>icons/logo.png</file>
+        <file>tools/marquee.png</file>
+        <file>icons/and.png</file>
+        <file>icons/not.png</file>
+        <file>icons/only.png</file>
+        <file>icons/or.png</file>
+        <file>tools/select-ellipse.png</file>
+        <file>cursors/select.png</file>
+        <file>cursors/setting.png</file>
+        <file>tools/move.png</file>
+        <file>cursors/duplicate.png</file>
+        <file>cursors/move-cut.png</file>
+    </qresource>
+</RCC>
