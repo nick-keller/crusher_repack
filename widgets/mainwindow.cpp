@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->createMenus();
     this->createToolBars();
     this->createDocks();
+    this->createDialogs();
     this->setWindowIcon(QIcon(":/icons/logo.png"));
 
     QObject::connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(documentActivated(QMdiSubWindow*)));
@@ -86,7 +87,7 @@ void MainWindow::createMenus()
     m_menus.insert("modify", menuSelect->addMenu("Modify"));
 
     m_actions.insert("expand", m_menus["modify"]->addAction("Expand...", this, SLOT(expand())));
-    m_actions.insert("contract", m_menus["modify"]->addAction("Contract...", this, SLOT(expand())));
+    m_actions.insert("contract", m_menus["modify"]->addAction("Contract...", this, SLOT(contract())));
 
     m_actions["select all"]->setDisabled(true);
     m_actions["deselect"]->setDisabled(true);
@@ -167,6 +168,12 @@ void MainWindow::createDocks()
     layersDock->setWidget(dockWidget);
 
     this->addDockWidget(Qt::RightDockWidgetArea, layersDock);
+}
+
+void MainWindow::createDialogs()
+{
+    m_dialogs.insert("expand", new ModifySelection("Expand", this));
+    m_dialogs.insert("contract", new ModifySelection("Contract", this));
 }
 
 Workspace *MainWindow::getWorkspace()
@@ -329,6 +336,16 @@ void MainWindow::reselect()
 void MainWindow::inverse()
 {
     this->getWorkspace()->getCanvas()->inverseSelection();
+}
+
+void MainWindow::expand()
+{
+    QDialog::DialogCode code = static_cast<QDialog::DialogCode>(m_dialogs["expand"]->exec());
+}
+
+void MainWindow::contract()
+{
+    QDialog::DialogCode code = static_cast<QDialog::DialogCode>(m_dialogs["contract"]->exec());
 }
 
 void MainWindow::selectionChanged(bool activated)

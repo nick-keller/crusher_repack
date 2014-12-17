@@ -21,4 +21,13 @@ QImage ModifySelection::getElement()
     QImage element(size, size, QImage::Format_ARGB32);
     element.fill(Qt::black);
 
+    if(ui->sharpSelector->isChecked())
+        element.fill(Qt::white);
+    else{
+        QPainter painter(&element);
+        painter.setPen(QPen(Qt::white));
+        Tool::drawPerfectEllipse(&painter, 0, 0, size, size);
+    }
+
+    return element;
 }

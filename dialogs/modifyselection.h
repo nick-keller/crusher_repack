@@ -2,6 +2,7 @@
 #define MODIFYSELECTION_H
 
 #include <QtWidgets>
+#include "../tools/tool.h"
 
 namespace Ui {
 class ModifySelection;

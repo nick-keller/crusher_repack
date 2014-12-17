@@ -5,6 +5,7 @@
 #include "workspace.h"
 #include "colorpicker.h"
 #include "../tools/tools.h"
+#include "../dialogs/modifyselection.h"
 
 class MainWindow : public QMainWindow
 {
@@ -20,6 +21,7 @@ private:
     void createMenus();
     void createToolBars();
     void createDocks();
+    void createDialogs();
     Workspace *getWorkspace();
 
 signals:
@@ -43,6 +45,8 @@ public slots:
     void deselect();
     void reselect();
     void inverse();
+    void expand();
+    void contract();
     void selectionChanged(bool);
 
     void documentActivated(QMdiSubWindow * subWindow);
@@ -55,6 +59,7 @@ private:
     QMdiArea                    *m_mdiArea;
     QHash<QString, QAction*>    m_actions;
     QHash<QString, QMenu*>      m_menus;
+    QHash<QString, QDialog*>    m_dialogs;
     QMap<Tool::Name, Tool*>     m_tools;
     QScrollArea                 *m_layersArea;
     ColorPicker                 *m_colorPicker;
