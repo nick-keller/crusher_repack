@@ -18,7 +18,8 @@ SOURCES += \
     tools/marqueetool.cpp \
     tools/selectiontool.cpp \
     tools/ellipseselectiontool.cpp \
-    tools/movetool.cpp
+    tools/movetool.cpp \
+    dialogs/modifyselection.cpp
 
 HEADERS += \
     src/layer.h \
@@ -38,12 +39,14 @@ HEADERS += \
     tools/marqueetool.h \
     tools/selectiontool.h \
     tools/ellipseselectiontool.h \
-    tools/movetool.h
+    tools/movetool.h \
+    dialogs/modifyselection.h
 
 RESOURCES += \
     icons.qrc
 
 FORMS += \
-    dialogs/brushselector.ui
+    dialogs/brushselector.ui \
+    dialogs/modifyselection.ui
 
 QMAKE_CXXFLAGS_WARN_OFF -= -Wunused-parameter
