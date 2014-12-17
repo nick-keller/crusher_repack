@@ -35,5 +35,10 @@
         <file>tools/move.png</file>
         <file>cursors/duplicate.png</file>
         <file>cursors/move-cut.png</file>
+        <file>cursors/cross-and.png</file>
+        <file>cursors/cross-minus.png</file>
+        <file>cursors/cross-plus.png</file>
+        <file>cursors/hand.png</file>
+        <file>cursors/select-layer.png</file>
     </qresource>
 </RCC>

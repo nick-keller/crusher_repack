@@ -12,7 +12,7 @@ class Tool : public QObject
     
 public:
     enum Name {Move, Marquee, EllipseSelection, Rect, Ellipse, Line};
-    enum Cursor {Cross, MoveCursor, MoveCut, Selection};
+    enum Cursor {Cross, CrossPlus, CrossMinus, CrossAnd, Duplicate, Hand, MoveCursor, MoveCut, Selection, SelectLayer};
 
     Tool(ColorPicker* colorPicker, Name toolName, QString name, QString icon, QString shortcut = "");
 

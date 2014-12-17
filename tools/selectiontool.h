@@ -19,6 +19,7 @@ protected:
 
     void createToolBar();
     void *createSelectionModeSelector();
+    void setCorrectCursor();
 
     virtual void paintSelection(MouseState, QPainter*){}
 

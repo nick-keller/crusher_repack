@@ -56,7 +56,7 @@ void SelectionTool::mouseMoveEvent(MouseState mouse, QImage *layer, QImage *hud,
         if(*useSelection && QColor(selection->pixel(mouse.getPos())) == Qt::white)
             this->setCursor(Selection);
         else
-            this->setCursor(Cross);
+            this->setCorrectCursor();
     }
 }
 
@@ -134,7 +134,21 @@ void *SelectionTool::createSelectionModeSelector()
     only->trigger();
 }
 
+void SelectionTool::setCorrectCursor()
+{
+    if(m_selectionMode == "only")
+        this->setCursor(Cross);
+    if(m_selectionMode == "or")
+        this->setCursor(CrossPlus);
+    if(m_selectionMode == "not")
+        this->setCursor(CrossMinus);
+    if(m_selectionMode == "and")
+        this->setCursor(CrossAnd);
+}
+
 void SelectionTool::changeSelectionMode(QAction *action)
 {
     m_selectionMode = action->property("mode").toString();
+
+    this->setCorrectCursor();
 }
