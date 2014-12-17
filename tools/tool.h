@@ -25,6 +25,14 @@ public:
     virtual void mousePressEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection){}
     virtual void mouseReleaseEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection){}
 
+
+    // Daw helper
+    static void drawPerfectLine(QPainter *painter, int x1, int y1, int x2, int y2);
+    static void drawPerfectLine(QPainter *painter, QPoint p1, QPoint p2);
+    static void drawPerfectEllipse(QPainter *painter, int x, int y, int width, int height, bool fill = false);
+    static void drawPerfectEllipse(QPainter *painter, QRect ellipse, bool fill = false);
+    static void drawInSelection(QImage *target, QImage *source, QImage *selection, bool *useSelection);
+
 protected:
     virtual void createToolBar(){}
 
@@ -33,13 +41,6 @@ protected:
     QComboBox   *createOutlineSelector();
     QComboBox   *createCapSelector();
     QSpinBox    *createBrushSizeSelector();
-
-    // Daw helper
-    void drawPerfectLine(QPainter *painter, int x1, int y1, int x2, int y2);
-    void drawPerfectLine(QPainter *painter, QPoint p1, QPoint p2);
-    void drawPerfectEllipse(QPainter *painter, int x, int y, int width, int height, bool fill = false);
-    void drawPerfectEllipse(QPainter *painter, QRect ellipse, bool fill = false);
-    void drawInSelection(QImage *target, QImage *source, QImage *selection, bool *useSelection);
 
     // Painter helpers
     QPainter    *getPainter(QPaintDevice *device);

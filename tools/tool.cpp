@@ -218,7 +218,7 @@ void Tool::drawPerfectLine(QPainter *painter, int x1, int y1, int x2, int y2)
 
 void Tool::drawPerfectLine(QPainter *painter, QPoint p1, QPoint p2)
 {
-    this->drawPerfectLine(painter, p1.x(), p1.y(), p2.x(), p2.y());
+    Tool::drawPerfectLine(painter, p1.x(), p1.y(), p2.x(), p2.y());
 }
 
 void Tool::drawPerfectEllipse(QPainter *painter, int left, int top, int width, int height, bool fill)
@@ -252,8 +252,8 @@ void Tool::drawPerfectEllipse(QPainter *painter, int left, int top, int width, i
         painter->drawPoint(cx - x, cy - y);
 
         if(fill){
-            this->drawPerfectLine(painter, cx + x + addX, cy + y + addY, cx - x, cy + y + addY);
-            this->drawPerfectLine(painter, cx + x + addX, cy - y, cx - x, cy - y);
+            Tool::drawPerfectLine(painter, cx + x + addX, cy + y + addY, cx - x, cy + y + addY);
+            Tool::drawPerfectLine(painter, cx + x + addX, cy - y, cx - x, cy - y);
         }
 
         y++;
@@ -284,8 +284,8 @@ void Tool::drawPerfectEllipse(QPainter *painter, int left, int top, int width, i
         painter->drawPoint(cx - x, cy - y);
 
         if(fill){
-            this->drawPerfectLine(painter, cx + x + addX, cy + y + addY, cx + x + addX, cy - y);
-            this->drawPerfectLine(painter, cx - x, cy + y + addY, cx - x, cy - y);
+            Tool::drawPerfectLine(painter, cx + x + addX, cy + y + addY, cx + x + addX, cy - y);
+            Tool::drawPerfectLine(painter, cx - x, cy + y + addY, cx - x, cy - y);
         }
 
         x++;
@@ -304,7 +304,7 @@ void Tool::drawPerfectEllipse(QPainter *painter, int left, int top, int width, i
 
 void Tool::drawPerfectEllipse(QPainter *painter, QRect ellipse, bool fill)
 {
-    this->drawPerfectEllipse(painter, ellipse.x(), ellipse.y(), ellipse.width(), ellipse.height(), fill);
+    Tool::drawPerfectEllipse(painter, ellipse.x(), ellipse.y(), ellipse.width(), ellipse.height(), fill);
 }
 
 void Tool::drawInSelection(QImage *target, QImage *source, QImage *selection, bool *useSelection)
