@@ -341,11 +341,23 @@ void MainWindow::inverse()
 void MainWindow::expand()
 {
     QDialog::DialogCode code = static_cast<QDialog::DialogCode>(m_dialogs["expand"]->exec());
+
+    if(code == QDialog::Rejected)
+        return;
+
+    ModifySelection *dialog = (ModifySelection*) m_dialogs["expand"];
+    this->getWorkspace()->getCanvas()->expandSelection(dialog->getElement());
 }
 
 void MainWindow::contract()
 {
     QDialog::DialogCode code = static_cast<QDialog::DialogCode>(m_dialogs["contract"]->exec());
+
+    if(code == QDialog::Rejected)
+        return;
+
+    ModifySelection *dialog = (ModifySelection*) m_dialogs["contract"];
+    this->getWorkspace()->getCanvas()->contractSelection(dialog->getElement());
 }
 
 void MainWindow::selectionChanged(bool activated)

@@ -44,6 +44,51 @@ bool Canvas::isPointSelected(int x, int y)
     return QColor(m_selection.pixel(x, y)) == Qt::white;
 }
 
+void Canvas::modifySelection(QImage element, QColor contract)
+{
+    int offset = element.width() / 2;
+    QImage temp(m_selection.width() + element.width() -1, m_selection.height() + element.height() -1, QImage::Format_ARGB32);
+    temp.fill(Qt::transparent);
+
+    QPainter painter(&temp);
+    painter.drawImage(element.width() /2, element.height() /2, m_selection);
+    painter.end();
+
+    QImage newSelection(m_selection.width(), m_selection.height(), QImage::Format_ARGB32);
+    newSelection.fill(contract);
+    painter.begin(&newSelection);
+    painter.setPen(QPen(Qt::white));
+
+    if(contract == Qt::white)
+        painter.setCompositionMode(QPainter::CompositionMode_DestinationOut);
+
+    bool checked;
+
+    for(int i(0); i < newSelection.width(); ++i){
+        for(int j(0); j < newSelection.height(); ++j){
+            checked = false;
+
+            for(int x(0); x < element.width() && !checked; ++x){
+                for(int y(0); y < element.height() && !checked; ++y){
+                    if(QColor(element.pixel(x, y)) == Qt::white){
+                        if(contract == Qt::white && QColor(temp.pixel(i + x, j + y)) != Qt::white ||
+                           contract != Qt::white && QColor(temp.pixel(i + x, j + y)) == Qt::white){
+                            checked = true;
+                            painter.drawPoint(i, j);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    painter.end();
+
+    painter.begin(&m_selection);
+    painter.setCompositionMode(QPainter::CompositionMode_Source);
+    painter.drawImage(0, 0, newSelection);
+}
+
 void Canvas::zoom(float level)
 {
     if(level < 1 || level > 100) return;
@@ -83,6 +128,16 @@ void Canvas::inverseSelection()
     painter.drawPixmap(0, 0, temp);
 
     update();
+}
+
+void Canvas::expandSelection(QImage element)
+{
+    this->modifySelection(element, Qt::transparent);
+}
+
+void Canvas::contractSelection(QImage element)
+{
+    this->modifySelection(element, Qt::white);
 }
 
 QImage Canvas::cut()

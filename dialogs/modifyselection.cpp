@@ -26,7 +26,7 @@ QImage ModifySelection::getElement()
     else{
         QPainter painter(&element);
         painter.setPen(QPen(Qt::white));
-        Tool::drawPerfectEllipse(&painter, 0, 0, size, size);
+        Tool::drawPerfectEllipse(&painter, 0, 0, size -1, size -1, true);
     }
 
     return element;

@@ -30,6 +30,8 @@ public:
     void toggleSelection();
     void selectAll();
     void inverseSelection();
+    void expandSelection(QImage element);
+    void contractSelection(QImage element);
 
     QImage cut();
     QImage copy();
@@ -46,6 +48,7 @@ protected:
 private:
     void initPaintDevice();
     bool isPointSelected(int x, int y);
+    void modifySelection(QImage element, QColor contract);
 
 signals:
 
