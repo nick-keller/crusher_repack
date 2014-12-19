@@ -15,19 +15,12 @@ ModifySelection::~ModifySelection()
     delete ui;
 }
 
-QImage ModifySelection::getElement()
+int ModifySelection::radius()
 {
-    int size = ui->value->value() *2 +1;
-    QImage element(size, size, QImage::Format_ARGB32);
-    element.fill(Qt::black);
+    return ui->value->value();
+}
 
-    if(ui->sharpSelector->isChecked())
-        element.fill(Qt::white);
-    else{
-        QPainter painter(&element);
-        painter.setPen(QPen(Qt::white));
-        Tool::drawPerfectEllipse(&painter, 0, 0, size -1, size -1, true);
-    }
-
-    return element;
+bool ModifySelection::sharp()
+{
+    return ui->sharpSelector->isChecked();
 }

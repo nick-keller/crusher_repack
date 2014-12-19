@@ -44,14 +44,25 @@ bool Canvas::isPointSelected(int x, int y)
     return QColor(m_selection.pixel(x, y)) == Qt::white;
 }
 
-void Canvas::modifySelection(QImage element, QColor contract)
+void Canvas::modifySelection(int radius, bool sharp, QColor contract)
 {
-    int offset = element.width() / 2;
+    int size = radius *2 +1;
+    QImage element(size, size, QImage::Format_ARGB32);
+    element.fill(Qt::black);
+
+    if(sharp)
+        element.fill(Qt::white);
+    else{
+        QPainter painter(&element);
+        painter.setPen(QPen(Qt::white));
+        Tool::drawPerfectEllipse(&painter, 0, 0, size -1, size -1, true);
+    }
+
     QImage temp(m_selection.width() + element.width() -1, m_selection.height() + element.height() -1, QImage::Format_ARGB32);
     temp.fill(Qt::transparent);
 
     QPainter painter(&temp);
-    painter.drawImage(element.width() /2, element.height() /2, m_selection);
+    painter.drawImage(radius, radius, m_selection);
     painter.end();
 
     QImage newSelection(m_selection.width(), m_selection.height(), QImage::Format_ARGB32);
@@ -130,14 +141,14 @@ void Canvas::inverseSelection()
     update();
 }
 
-void Canvas::expandSelection(QImage element)
+void Canvas::expandSelection(int radius, bool sharp)
 {
-    this->modifySelection(element, Qt::transparent);
+    this->modifySelection(radius, sharp, Qt::transparent);
 }
 
-void Canvas::contractSelection(QImage element)
+void Canvas::contractSelection(int radius, bool sharp)
 {
-    this->modifySelection(element, Qt::white);
+    this->modifySelection(radius, sharp, Qt::white);
 }
 
 QImage Canvas::cut()

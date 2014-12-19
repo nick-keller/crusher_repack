@@ -16,7 +16,8 @@ public:
     explicit ModifySelection(QString operation, QWidget *parent = 0);
     ~ModifySelection();
 
-    QImage getElement();
+    int radius();
+    bool sharp();
 
 private:
     Ui::ModifySelection *ui;

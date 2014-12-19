@@ -348,7 +348,7 @@ void MainWindow::expand()
         return;
 
     ModifySelection *dialog = (ModifySelection*) m_dialogs["expand"];
-    this->getWorkspace()->getCanvas()->expandSelection(dialog->getElement());
+    this->getWorkspace()->getCanvas()->expandSelection(dialog->radius(), dialog->sharp());
 }
 
 void MainWindow::contract()
@@ -359,7 +359,7 @@ void MainWindow::contract()
         return;
 
     ModifySelection *dialog = (ModifySelection*) m_dialogs["contract"];
-    this->getWorkspace()->getCanvas()->contractSelection(dialog->getElement());
+    this->getWorkspace()->getCanvas()->contractSelection(dialog->radius(), dialog->sharp());
 }
 
 void MainWindow::smoothSelection()
