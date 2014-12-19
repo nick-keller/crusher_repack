@@ -88,6 +88,7 @@ void MainWindow::createMenus()
 
     m_actions.insert("expand", m_menus["modify"]->addAction("Expand...", this, SLOT(expand())));
     m_actions.insert("contract", m_menus["modify"]->addAction("Contract...", this, SLOT(contract())));
+    m_actions.insert("smooth selection", m_menus["modify"]->addAction("Smooth...", this, SLOT(smoothSelection())));
 
     m_actions["select all"]->setDisabled(true);
     m_actions["deselect"]->setDisabled(true);
@@ -174,6 +175,7 @@ void MainWindow::createDialogs()
 {
     m_dialogs.insert("expand", new ModifySelection("Expand", this));
     m_dialogs.insert("contract", new ModifySelection("Contract", this));
+    m_dialogs.insert("smooth selection", new SmoothSelection(this));
 }
 
 Workspace *MainWindow::getWorkspace()
@@ -358,6 +360,14 @@ void MainWindow::contract()
 
     ModifySelection *dialog = (ModifySelection*) m_dialogs["contract"];
     this->getWorkspace()->getCanvas()->contractSelection(dialog->getElement());
+}
+
+void MainWindow::smoothSelection()
+{
+    QDialog::DialogCode code = static_cast<QDialog::DialogCode>(m_dialogs["smooth selection"]->exec());
+
+    if(code == QDialog::Rejected)
+        return;
 }
 
 void MainWindow::selectionChanged(bool activated)

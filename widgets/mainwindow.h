@@ -6,6 +6,7 @@
 #include "colorpicker.h"
 #include "../tools/tools.h"
 #include "../dialogs/modifyselection.h"
+#include "../dialogs/smoothselection.h"
 
 class MainWindow : public QMainWindow
 {
@@ -47,6 +48,7 @@ public slots:
     void inverse();
     void expand();
     void contract();
+    void smoothSelection();
     void selectionChanged(bool);
 
     void documentActivated(QMdiSubWindow * subWindow);
