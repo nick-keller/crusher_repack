@@ -44,11 +44,11 @@ bool Canvas::isPointSelected(int x, int y)
     return QColor(m_selection.pixel(x, y)) == Qt::white;
 }
 
-void Canvas::modifySelection(int radius, bool sharp, QColor contract)
+void Canvas::modifySelection(int radius, bool sharp, QColor expand)
 {
     int size = radius *2 +1;
     QImage element(size, size, QImage::Format_ARGB32);
-    element.fill(Qt::black);
+    element.fill(Qt::transparent);
 
     if(sharp)
         element.fill(Qt::white);
@@ -58,46 +58,27 @@ void Canvas::modifySelection(int radius, bool sharp, QColor contract)
         Tool::drawPerfectEllipse(&painter, 0, 0, size -1, size -1, true);
     }
 
-    QImage temp(m_selection.width() + element.width() -1, m_selection.height() + element.height() -1, QImage::Format_ARGB32);
-    temp.fill(Qt::transparent);
-
-    QPainter painter(&temp);
-    painter.drawImage(radius, radius, m_selection);
+    QImage newSelection(m_selection.width() +2, m_selection.height() +2, QImage::Format_ARGB32);
+    newSelection.fill(Qt::transparent);
+    QPainter painter(&newSelection);
+    painter.drawImage(1, 1, m_selection);
     painter.end();
 
-    QImage newSelection(m_selection.width(), m_selection.height(), QImage::Format_ARGB32);
-    newSelection.fill(contract);
-    painter.begin(&newSelection);
-    painter.setPen(QPen(Qt::white));
-
-    if(contract == Qt::white)
+    painter.begin(&m_selection);
+    if(expand != Qt::white){
         painter.setCompositionMode(QPainter::CompositionMode_DestinationOut);
+    }
 
-    bool checked;
+    QColor test;
 
     for(int i(0); i < newSelection.width(); ++i){
         for(int j(0); j < newSelection.height(); ++j){
-            checked = false;
-
-            for(int x(0); x < element.width() && !checked; ++x){
-                for(int y(0); y < element.height() && !checked; ++y){
-                    if(QColor(element.pixel(x, y)) == Qt::white){
-                        if(contract == Qt::white && QColor(temp.pixel(i + x, j + y)) != Qt::white ||
-                           contract != Qt::white && QColor(temp.pixel(i + x, j + y)) == Qt::white){
-                            checked = true;
-                            painter.drawPoint(i, j);
-                        }
-                    }
-                }
+            if(newSelection.pixel(i, j) == expand.rgba()){
+                painter.drawImage(i - radius -1, j - radius -1, element);
             }
         }
     }
 
-    painter.end();
-
-    painter.begin(&m_selection);
-    painter.setCompositionMode(QPainter::CompositionMode_Source);
-    painter.drawImage(0, 0, newSelection);
 }
 
 void Canvas::zoom(float level)
@@ -143,12 +124,12 @@ void Canvas::inverseSelection()
 
 void Canvas::expandSelection(int radius, bool sharp)
 {
-    this->modifySelection(radius, sharp, Qt::transparent);
+    this->modifySelection(radius, sharp, Qt::white);
 }
 
 void Canvas::contractSelection(int radius, bool sharp)
 {
-    this->modifySelection(radius, sharp, Qt::white);
+    this->modifySelection(radius, sharp, Qt::transparent);
 }
 
 QImage Canvas::cut()

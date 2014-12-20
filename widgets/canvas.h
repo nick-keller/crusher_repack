@@ -48,7 +48,7 @@ protected:
 private:
     void initPaintDevice();
     bool isPointSelected(int x, int y);
-    void modifySelection(int radius, bool sharp, QColor contract);
+    void modifySelection(int radius, bool sharp, QColor expand);
 
 signals:
 
