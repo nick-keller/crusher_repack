@@ -40,5 +40,7 @@
         <file>cursors/cross-plus.png</file>
         <file>cursors/hand.png</file>
         <file>cursors/select-layer.png</file>
+        <file>tools/bucket.png</file>
+        <file>cursors/bucket.png</file>
     </qresource>
 </RCC>
