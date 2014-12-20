@@ -12,3 +12,8 @@ SmoothSelection::~SmoothSelection()
 {
     delete ui;
 }
+
+int SmoothSelection::radius()
+{
+    return ui->radius->value();
+}

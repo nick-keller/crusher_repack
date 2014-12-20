@@ -368,6 +368,10 @@ void MainWindow::smoothSelection()
 
     if(code == QDialog::Rejected)
         return;
+
+    SmoothSelection *dialog = (SmoothSelection*) m_dialogs["smooth selection"];
+    this->getWorkspace()->getCanvas()->contractSelection(dialog->radius(), false);
+    this->getWorkspace()->getCanvas()->expandSelection(dialog->radius(), false);
 }
 
 void MainWindow::selectionChanged(bool activated)

@@ -15,6 +15,8 @@ public:
     explicit SmoothSelection(QWidget *parent = 0);
     ~SmoothSelection();
 
+    int radius();
+
 private:
     Ui::SmoothSelection *ui;
 };

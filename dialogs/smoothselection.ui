@@ -22,7 +22,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QSpinBox" name="spinBox">
+    <widget class="QSpinBox" name="radius">
      <property name="minimum">
       <number>1</number>
      </property>
