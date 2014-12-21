@@ -92,9 +92,9 @@ void PatternMaker::drawPoint()
 
     if(m_color == Black || m_color == White){
         if(m_color == Black)
-            painter.setPen(QColor(0, 0, 0));
+            painter.setPen(QColor(40, 40, 40));
         else
-            painter.setPen(QColor(255, 255, 255));
+            painter.setPen(QColor(247, 247, 247));
 
         painter.drawPoint(m_mouse.x(), m_mouse.y());
     }
