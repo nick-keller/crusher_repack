@@ -5,6 +5,7 @@ Tool::Tool(ColorPicker *colorPicker, Name toolName, QString name, QString icon, 
     m_colorPicker(colorPicker),
     m_joinType(0), m_brushSize(0), m_outlineType(0), m_capType(0)
 {
+    m_cursors.insert(Bucket, new QCursor(QPixmap(":/cursors/bucket.png"), 1, 1));
     m_cursors.insert(Cross, new QCursor(QPixmap(":/cursors/cross.png")));
     m_cursors.insert(CrossPlus, new QCursor(QPixmap(":/cursors/cross-plus.png"), 9, 9));
     m_cursors.insert(CrossMinus, new QCursor(QPixmap(":/cursors/cross-minus.png"), 9, 9));

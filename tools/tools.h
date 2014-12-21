@@ -7,5 +7,6 @@
 #include "marqueetool.h"
 #include "ellipseselectiontool.h"
 #include "movetool.h"
+#include "buckettool.h"
 
 #endif // TOOLS_H

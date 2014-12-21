@@ -114,6 +114,7 @@ void MainWindow::createToolBars()
     m_tools.insert(Tool::Rect, new RectTool(m_colorPicker));
     m_tools.insert(Tool::Ellipse, new EllipseTool(m_colorPicker));
     m_tools.insert(Tool::Line, new LineTool(m_colorPicker));
+    m_tools.insert(Tool::BucketTool, new BucketTool(m_colorPicker));
 
     // create toolbar
     QActionGroup *toolGroup = new QActionGroup(this);

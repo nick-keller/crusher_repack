@@ -20,7 +20,8 @@ SOURCES += \
     tools/ellipseselectiontool.cpp \
     tools/movetool.cpp \
     dialogs/modifyselection.cpp \
-    dialogs/smoothselection.cpp
+    dialogs/smoothselection.cpp \
+    tools/buckettool.cpp
 
 HEADERS += \
     src/layer.h \
@@ -42,7 +43,8 @@ HEADERS += \
     tools/ellipseselectiontool.h \
     tools/movetool.h \
     dialogs/modifyselection.h \
-    dialogs/smoothselection.h
+    dialogs/smoothselection.h \
+    tools/buckettool.h
 
 RESOURCES += \
     icons.qrc
