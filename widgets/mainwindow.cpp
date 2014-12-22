@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     this->createToolBars();
     this->createDocks();
     this->createDialogs();
+    this->selectionChanged(false);
+    this->documentClosed();
     this->setWindowIcon(QIcon(":/icons/logo.png"));
 
     QObject::connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(documentActivated(QMdiSubWindow*)));
@@ -48,10 +50,11 @@ void MainWindow::createMenus()
     menuFile->addSeparator();
     m_actions.insert("exit", menuFile->addAction("Exit", this, SLOT(close()), QString("Ctrl+Q")));
 
-    m_actions["close"]->setDisabled(true);
-    m_actions["close all"]->setDisabled(true);
-    m_actions["save"]->setDisabled(true);
-    m_actions["save as"]->setDisabled(true);
+    m_actionsDocOpened
+            << m_actions["close"]
+            << m_actions["close all"]
+            << m_actions["save"]
+            << m_actions["save as"];
 
     // Edit ------------------------------------------------------------------------------
     QMenu *menuEdit = menuBar->addMenu("&Edit");
@@ -61,10 +64,12 @@ void MainWindow::createMenus()
     m_actions.insert("paste", menuEdit->addAction("Paste", this, SLOT(paste()), QString("Ctrl+V")));
     m_actions.insert("clear", menuEdit->addAction("Clear", this, SLOT(clear()), QString("Del")));
 
-    m_actions["cut"]->setDisabled(true);
-    m_actions["copy"]->setDisabled(true);
     m_actions["paste"]->setDisabled(true);
-    m_actions["clear"]->setDisabled(true);
+
+    m_actionsSelectionActivated
+            << m_actions["cut"]
+            << m_actions["copy"]
+            << m_actions["clear"];
 
     // Layer -----------------------------------------------------------------------------
     QMenu *menuLayer = menuBar->addMenu("&Layer");
@@ -72,8 +77,9 @@ void MainWindow::createMenus()
     m_actions.insert("new layer", menuLayer->addAction(QIcon(":/icons/newlayer.png"), "New layer...", this, SLOT(createNewLayer()),  QString("Shift+Ctrl+N")));
     m_actions.insert("remove layer", menuLayer->addAction(QIcon(":/icons/trash.png"), "Remove layer", this, SLOT(removeLayer())));
 
-    m_actions["new layer"]->setDisabled(true);
-    m_actions["remove layer"]->setDisabled(true);
+    m_actionsDocOpened
+            << m_actions["new layer"]
+            << m_actions["remove layer"];
 
     // Select ----------------------------------------------------------------------------
     QMenu *menuSelect = menuBar->addMenu("&Select");
@@ -90,11 +96,9 @@ void MainWindow::createMenus()
     m_actions.insert("contract", m_menus["modify"]->addAction("Contract...", this, SLOT(contract())));
     m_actions.insert("smooth selection", m_menus["modify"]->addAction("Smooth...", this, SLOT(smoothSelection())));
 
-    m_actions["select all"]->setDisabled(true);
-    m_actions["deselect"]->setDisabled(true);
-    m_actions["reselect"]->setDisabled(true);
-    m_actions["inverse"]->setDisabled(true);
-    m_menus["modify"]->setEnabled(false);
+    m_actionsDocOpened << m_actions["select all"];
+    m_actionsSelectionActivated << m_actions["deselect"] << m_actions["inverse"];
+    m_actionsSelectionNotActivated << m_actions["reselect"];
 }
 
 void MainWindow::createToolBars()
@@ -194,6 +198,15 @@ void MainWindow::createNewDocument()
 
     QMdiSubWindow *subWindow = m_mdiArea->addSubWindow(newDocument, Qt::Widget | Qt::CustomizeWindowHint | Qt::WindowMinMaxButtonsHint);
     subWindow->show();
+
+    for(int i(0); i < m_actionsDocOpened.size(); ++i)
+        m_actionsDocOpened[i]->setEnabled(true);
+
+    for(int i(0); i < m_actionsSelectionActivated.size(); ++i)
+        m_actionsSelectionActivated[i]->setEnabled(false);
+
+    for(int i(0); i < m_actionsSelectionNotActivated.size(); ++i)
+        m_actionsSelectionNotActivated[i]->setEnabled(true);
 }
 
 void MainWindow::closeDocument()
@@ -221,19 +234,16 @@ void MainWindow::documentClosed()
     if(m_mdiArea->subWindowList().empty()){
         m_layersArea->takeWidget();
 
-        m_actions["close"]->setDisabled(true);
-        m_actions["close all"]->setDisabled(true);
-        m_actions["save"]->setDisabled(true);
-        m_actions["save as"]->setDisabled(true);
+        for(int i(0); i < m_actionsDocOpened.size(); ++i)
+            m_actionsDocOpened[i]->setEnabled(false);
 
-        m_actions["new layer"]->setDisabled(true);
-        m_actions["remove layer"]->setDisabled(true);
+        for(int i(0); i < m_actionsSelectionActivated.size(); ++i)
+            m_actionsSelectionActivated[i]->setEnabled(false);
 
-        m_actions["select all"]->setDisabled(true);
-        m_actions["deselect"]->setDisabled(true);
+        for(int i(0); i < m_actionsSelectionNotActivated.size(); ++i)
+            m_actionsSelectionNotActivated[i]->setEnabled(false);
+
         m_actions["reselect"]->setDisabled(true);
-        m_actions["inverse"]->setDisabled(true);
-        m_menus["modify"]->setDisabled(true);
     }
 }
 
@@ -309,31 +319,19 @@ void MainWindow::removeLayer()
 void MainWindow::selectAll()
 {
     this->getWorkspace()->getCanvas()->selectAll();
-
-    m_actions["deselect"]->setEnabled(true);
-    m_actions["reselect"]->setDisabled(true);
-    m_actions["inverse"]->setEnabled(true);
-    m_menus["modify"]->setEnabled(true);
+    this->selectionChanged(true);
 }
 
 void MainWindow::deselect()
 {
     this->getWorkspace()->getCanvas()->toggleSelection();
-
-    m_actions["deselect"]->setDisabled(true);
-    m_actions["reselect"]->setEnabled(true);
-    m_actions["inverse"]->setDisabled(true);
-    m_menus["modify"]->setDisabled(true);
+    this->selectionChanged(false);
 }
 
 void MainWindow::reselect()
 {
     this->getWorkspace()->getCanvas()->toggleSelection();
-
-    m_actions["deselect"]->setEnabled(true);
-    m_actions["reselect"]->setDisabled(true);
-    m_actions["inverse"]->setEnabled(true);
-    m_menus["modify"]->setEnabled(true);
+    this->selectionChanged(true);
 }
 
 void MainWindow::inverse()
@@ -377,14 +375,13 @@ void MainWindow::smoothSelection()
 
 void MainWindow::selectionChanged(bool activated)
 {
-    m_actions["deselect"]->setEnabled(activated);
-    m_actions["reselect"]->setDisabled(activated);
-    m_actions["inverse"]->setEnabled(activated);
-    m_menus["modify"]->setEnabled(activated);
+    for(int i(0); i < m_actionsSelectionActivated.size(); ++i)
+        m_actionsSelectionActivated[i]->setEnabled(activated);
 
-    m_actions["cut"]->setEnabled(activated);
-    m_actions["copy"]->setEnabled(activated);
-    m_actions["clear"]->setEnabled(activated);
+    for(int i(0); i < m_actionsSelectionNotActivated.size(); ++i)
+        m_actionsSelectionNotActivated[i]->setDisabled(activated);
+
+    m_menus["modify"]->setEnabled(activated);
 }
 
 void MainWindow::documentActivated(QMdiSubWindow *subWindow)
@@ -400,22 +397,5 @@ void MainWindow::documentActivated(QMdiSubWindow *subWindow)
     m_layersArea->setWidget(layers);
     workspace->setCursor(*m_tool->getCursor());
 
-    m_actions["close"]->setEnabled(true);
-    m_actions["close all"]->setEnabled(true);
-    m_actions["save"]->setEnabled(true);
-    m_actions["save as"]->setEnabled(true);
-    m_actions["new layer"]->setEnabled(true);
-    m_actions["remove layer"]->setEnabled(true);
-    m_actions["select all"]->setEnabled(true);
-
-    bool activated = workspace->getCanvas()->isSelectionActivated();
-
-    m_actions["deselect"]->setEnabled(activated);
-    m_actions["reselect"]->setDisabled(activated);
-    m_actions["inverse"]->setEnabled(activated);
-    m_menus["modify"]->setEnabled(activated);
-
-    m_actions["cut"]->setEnabled(activated);
-    m_actions["copy"]->setEnabled(activated);
-    m_actions["clear"]->setEnabled(activated);
+    this->selectionChanged(workspace->getCanvas()->isSelectionActivated());
 }

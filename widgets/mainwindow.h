@@ -59,13 +59,19 @@ public slots:
 
 private:
     QMdiArea                    *m_mdiArea;
+
     QHash<QString, QAction*>    m_actions;
     QHash<QString, QMenu*>      m_menus;
     QHash<QString, QDialog*>    m_dialogs;
     QMap<Tool::Name, Tool*>     m_tools;
+    QList<QAction*>             m_actionsDocOpened;
+    QList<QAction*>             m_actionsSelectionActivated;
+    QList<QAction*>             m_actionsSelectionNotActivated;
+
     QScrollArea                 *m_layersArea;
     ColorPicker                 *m_colorPicker;
     QToolBar                    *m_toolOptions;
+
     Tool                        *m_tool;
     QImage                      m_clipboard;
 };
