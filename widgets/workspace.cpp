@@ -41,8 +41,9 @@ void Workspace::keyPressEvent(QKeyEvent *event)
     Qt::Key key = this->getKey(event);
 
     m_keysDown.insert(key);
+    m_mainWindow->getTool()->keyPressEvent(key);
 
-//    this->updateCursor();
+    this->updateCursor();
 }
 
 void Workspace::keyReleaseEvent(QKeyEvent *event)
@@ -50,8 +51,9 @@ void Workspace::keyReleaseEvent(QKeyEvent *event)
     Qt::Key key = this->getKey(event);
 
     m_keysDown.remove(key);
+    m_mainWindow->getTool()->keyReleaseEvent(key);
 
-//    this->updateCursor();
+    this->updateCursor();
 }
 
 void Workspace::mouseMoveEvent(QMouseEvent *event)
@@ -100,7 +102,7 @@ void Workspace::updateCursor()
             this->setCursor(QCursor(Qt::OpenHandCursor));
     }
     else{
-//        this->setCursor(*m_mainWindow->getTool()->getCursor());
+        this->setCursor(*m_mainWindow->getTool()->getCursor());
     }
 }
 

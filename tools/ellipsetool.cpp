@@ -33,6 +33,7 @@ void EllipseTool::drawEllipse(MouseState mouse, QImage *image, QImage *selection
     QPainter painter(&temp);
 
     QRect ellipseRect = mouse.getClickedRect();
+    this->constrainRect(mouse, &ellipseRect);
 
     if("Inside" != m_outlineType->currentText()) {
         int offset = m_brushSize->value();

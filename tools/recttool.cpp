@@ -36,6 +36,7 @@ void RectTool::drawRect(MouseState mouse, QImage *image, QImage *selection, bool
 
     // The target rect
     QRect rect = this->getRectPlusOne(mouse);
+    this->constrainRect(mouse, &rect);
 
     // The outline width
     int outlineWidth = m_colorPicker->getOutlineType() == BrushSelector::None ? 0 : m_brushSize->value();

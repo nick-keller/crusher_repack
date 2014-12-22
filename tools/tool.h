@@ -24,6 +24,8 @@ public:
     virtual void mouseMoveEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection){}
     virtual void mousePressEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection){}
     virtual void mouseReleaseEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection){}
+    virtual void keyPressEvent(Qt::Key);
+    virtual void keyReleaseEvent(Qt::Key);
 
 
     // Daw helper
@@ -53,6 +55,7 @@ protected:
     // Helpers
     QRect getRectPlusOne(QRect);
     QRect getRectPlusOne(MouseState);
+    void constrainRect(MouseState, QRect*);
 
     // Other
     void setCursor(Cursor);
@@ -74,6 +77,7 @@ protected:
     QComboBox               *m_capType;
     QCursor                 *m_cursor;
     QHash<Cursor, QCursor*> m_cursors;
+    QSet<Qt::Key>           m_keysDown;
 };
 
 #endif // TOOL_H

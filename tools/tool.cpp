@@ -50,6 +50,16 @@ QCursor *Tool::getCursor()
     return m_cursor;
 }
 
+void Tool::keyPressEvent(Qt::Key key)
+{
+    m_keysDown.insert(key);
+}
+
+void Tool::keyReleaseEvent(Qt::Key key)
+{
+    m_keysDown.remove(key);
+}
+
 QComboBox *Tool::createAngleSelector()
 {
     QLabel *label = new QLabel("Corners: ", m_toolbar);
@@ -371,6 +381,42 @@ QRect Tool::getRectPlusOne(QRect rect)
 QRect Tool::getRectPlusOne(MouseState mouse)
 {
     return this->getRectPlusOne(mouse.getClickedRect());
+}
+
+void Tool::constrainRect(MouseState mouse, QRect *rect)
+{
+
+    if(m_keysDown.contains(Qt::Key_Alt)){
+        QSize newSize(rect->width() *2 -1, rect->height() *2 -1);
+
+        if(m_keysDown.contains(Qt::Key_Shift)){
+            newSize.setWidth(std::min(newSize.width(), newSize.height()));
+            newSize.setHeight(newSize.width());
+        }
+
+        rect->setX(mouse.clickedX() - newSize.width() /2);
+        rect->setY(mouse.clickedY() - newSize.height() /2);
+        rect->setSize(newSize);
+    }
+
+    else if(m_keysDown.contains(Qt::Key_Shift)){
+
+        int newSize = std::min(rect->width(), rect->height());
+
+        if(rect->width() < rect->height()){
+            if(mouse.y() < mouse.clickedY()){
+                rect->setY(mouse.clickedY() - newSize +1);
+            }
+        }
+        else{
+            if(mouse.x() < mouse.clickedX()){
+                rect->setX(mouse.clickedX() - newSize +1);
+            }
+        }
+
+        rect->setHeight(newSize);
+        rect->setWidth(newSize);
+    }
 }
 
 void Tool::setCursor(Tool::Cursor cursor)
