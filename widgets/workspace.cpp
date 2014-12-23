@@ -9,7 +9,7 @@ Workspace::Workspace(MainWindow *mainWindow, QWidget *parent) :
     this->setBackgroundRole(QPalette::Shadow);
     this->setWidget(m_canvas);
     this->setAlignment(Qt::AlignCenter);
-    this->setTitle("Sans nom");
+    this->setTitle("Untitled");
 //    this->updateCursor();
     this->setMouseTracking(true);
 }
