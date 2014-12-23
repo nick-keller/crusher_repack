@@ -14,6 +14,7 @@ public:
 
     QPoint getPos(){return m_pos;}
     QPoint getClickedAt(){return m_clickedAt;}
+    QPoint delta();
     QRect getClickedRect();
 
     bool moved();

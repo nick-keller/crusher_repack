@@ -6,5 +6,7 @@ MarqueeTool::MarqueeTool(ColorPicker *colorPicker) : SelectionTool(colorPicker, 
 
 void MarqueeTool::paintSelection(MouseState mouse, QPainter *painter)
 {
-    painter->drawRect(this->getRectPlusOne(mouse));
+    QRect rect = this->getRectPlusOne(mouse);
+    this->constrainRect(mouse, &rect);
+    painter->drawRect(rect);
 }

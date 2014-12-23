@@ -54,4 +54,4 @@ FORMS += \
     dialogs/modifyselection.ui \
     dialogs/smoothselection.ui
 
-QMAKE_CXXFLAGS_WARN_OFF -= -Wunused-parameter
+QMAKE_CFLAGS = -Wno-unused-parameter

@@ -20,6 +20,11 @@ bool MouseState::isButtonDown(Qt::MouseButton button)
     return m_buttons & button == button;
 }
 
+QPoint MouseState::delta()
+{
+    return m_pos - m_clickedAt;
+}
+
 QRect MouseState::getClickedRect()
 {
     QRect rect;

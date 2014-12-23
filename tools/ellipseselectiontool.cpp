@@ -7,5 +7,7 @@ EllipseSelectionTool::EllipseSelectionTool(ColorPicker *colorPicker) : Selection
 void EllipseSelectionTool::paintSelection(MouseState mouse, QPainter *painter)
 {
     painter->setPen(QPen(painter->brush(), 1));
-    this->drawPerfectEllipse(painter, mouse.getClickedRect(), true);
+    QRect rect = mouse.getClickedRect();
+    this->constrainRect(mouse, &rect);
+    this->drawPerfectEllipse(painter, rect, true);
 }
