@@ -7,6 +7,7 @@
 #include "../tools/tools.h"
 #include "../dialogs/modifyselection.h"
 #include "../dialogs/smoothselection.h"
+#include "../dialogs/fillselector.h"
 
 class MainWindow : public QMainWindow
 {
@@ -28,20 +29,25 @@ private:
 signals:
 
 public slots:
+    // File
     void createNewDocument();
     void closeDocument();
     void closeAllDocuments();
     void saveDocument();
     void saveDocumentAs();
 
+    // Edit
     void cut();
     void copy();
     void paste();
     void clear();
+    void fill();
 
+    // Layer
     void createNewLayer();
     void removeLayer();
 
+    // Select
     void selectAll();
     void deselect();
     void reselect();

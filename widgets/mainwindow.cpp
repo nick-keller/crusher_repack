@@ -63,13 +63,16 @@ void MainWindow::createMenus()
     m_actions.insert("copy", menuEdit->addAction("Copy", this, SLOT(copy()), QString("Ctrl+C")));
     m_actions.insert("paste", menuEdit->addAction("Paste", this, SLOT(paste()), QString("Ctrl+V")));
     m_actions.insert("clear", menuEdit->addAction("Clear", this, SLOT(clear()), QString("Del")));
+    menuEdit->addSeparator();
+    m_actions.insert("fill", menuEdit->addAction("Fill...", this, SLOT(fill()), QString("Shift+F5")));
 
     m_actions["paste"]->setDisabled(true);
 
     m_actionsSelectionActivated
             << m_actions["cut"]
             << m_actions["copy"]
-            << m_actions["clear"];
+            << m_actions["clear"]
+            << m_actions["fill"];
 
     // Layer -----------------------------------------------------------------------------
     QMenu *menuLayer = menuBar->addMenu("&Layer");
@@ -182,6 +185,7 @@ void MainWindow::createDialogs()
     m_dialogs.insert("expand", new ModifySelection("Expand", this));
     m_dialogs.insert("contract", new ModifySelection("Contract", this));
     m_dialogs.insert("smooth selection", new SmoothSelection(this));
+    m_dialogs.insert("fill", new FillSelector(this));
 }
 
 Workspace *MainWindow::getWorkspace()
@@ -304,6 +308,17 @@ void MainWindow::paste()
 void MainWindow::clear()
 {
     this->getWorkspace()->getCanvas()->clear();
+}
+
+void MainWindow::fill()
+{
+    QDialog::DialogCode code = static_cast<QDialog::DialogCode>(m_dialogs["fill"]->exec());
+
+    if(code == QDialog::Rejected)
+        return;
+
+//    ModifySelection *dialog = (ModifySelection*) m_dialogs["expand"];
+//    this->getWorkspace()->getCanvas()->expandSelection(dialog->radius(), dialog->sharp());
 }
 
 void MainWindow::createNewLayer()

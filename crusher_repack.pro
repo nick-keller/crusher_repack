@@ -22,7 +22,8 @@ SOURCES += \
     dialogs/modifyselection.cpp \
     dialogs/smoothselection.cpp \
     tools/buckettool.cpp \
-    tools/wandtool.cpp
+    tools/wandtool.cpp \
+    dialogs/fillselector.cpp
 
 HEADERS += \
     src/layer.h \
@@ -46,7 +47,8 @@ HEADERS += \
     dialogs/modifyselection.h \
     dialogs/smoothselection.h \
     tools/buckettool.h \
-    tools/wandtool.h
+    tools/wandtool.h \
+    dialogs/fillselector.h
 
 RESOURCES += \
     icons.qrc
@@ -54,6 +56,7 @@ RESOURCES += \
 FORMS += \
     dialogs/brushselector.ui \
     dialogs/modifyselection.ui \
-    dialogs/smoothselection.ui
+    dialogs/smoothselection.ui \
+    dialogs/fillselector.ui
 
 QMAKE_CFLAGS = -Wno-unused-parameter

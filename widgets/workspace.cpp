@@ -126,7 +126,7 @@ bool Workspace::saveAs()
 {
     QSettings settings("crusher.ini", QSettings::IniFormat);
 
-    QString fileName = QFileDialog::getSaveFileName(this, "Save", settings.value("path/save").toString() + "/" + m_title, "Crusher Document (*.cd);;Image (*.png *.jpg)");
+    QString fileName = QFileDialog::getSaveFileName(this, "Save", settings.value("path/save").toString() + "/" + m_title, "Crusher Document (*.crd);;Image (*.png *.jpg)");
 
     if(fileName == "")
         return false;
@@ -135,7 +135,7 @@ bool Workspace::saveAs()
     settings.setValue("path/save", fileInfo.absoluteDir().absolutePath());
     this->setTitle(fileInfo.baseName());
 
-    if(fileInfo.suffix() == "cd"){
+    if(fileInfo.suffix() == "crd"){
         m_file = fileInfo.absoluteFilePath();
         this->setModified(false);
     }
