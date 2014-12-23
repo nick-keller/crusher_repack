@@ -41,6 +41,13 @@ QToolBar *Tool::getToolBar(QWidget *parent)
     m_toolbar->setMovable(false);
     m_toolbar->setFloatable(false);
     m_toolbar->setFixedHeight(40);
+
+    QLabel* icon = new QLabel(m_toolbar);
+    icon->setPixmap(QPixmap(m_icon));
+    icon->setMargin(8);
+    m_toolbar->addWidget(icon);
+    m_toolbar->addSeparator();
+
     this->createToolBar();
     return m_toolbar;
 }
