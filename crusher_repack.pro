@@ -21,7 +21,8 @@ SOURCES += \
     tools/movetool.cpp \
     dialogs/modifyselection.cpp \
     dialogs/smoothselection.cpp \
-    tools/buckettool.cpp
+    tools/buckettool.cpp \
+    tools/wandtool.cpp
 
 HEADERS += \
     src/layer.h \
@@ -44,7 +45,8 @@ HEADERS += \
     tools/movetool.h \
     dialogs/modifyselection.h \
     dialogs/smoothselection.h \
-    tools/buckettool.h
+    tools/buckettool.h \
+    tools/wandtool.h
 
 RESOURCES += \
     icons.qrc

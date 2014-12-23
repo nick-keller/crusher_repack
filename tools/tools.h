@@ -8,5 +8,6 @@
 #include "ellipseselectiontool.h"
 #include "movetool.h"
 #include "buckettool.h"
+#include "wandtool.h"
 
 #endif // TOOLS_H

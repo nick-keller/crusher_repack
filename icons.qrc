@@ -43,5 +43,6 @@
         <file>tools/bucket.png</file>
         <file>cursors/bucket.png</file>
         <file>cursors/wand.png</file>
+        <file>tools/wand.png</file>
     </qresource>
 </RCC>

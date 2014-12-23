@@ -182,7 +182,6 @@ void SelectionTool::updateMode()
 {
     if(!m_drawing && !m_moving){
         if(m_unmodifiedMode == 0){
-            qDebug() << m_selectionMode;
             if(m_selectionMode == "only")
                 m_unmodifiedMode = m_only;
             if(m_selectionMode == "or")
