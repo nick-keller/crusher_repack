@@ -16,6 +16,7 @@ Tool::Tool(ColorPicker *colorPicker, Name toolName, QString name, QString icon, 
     m_cursors.insert(MoveCut, new QCursor(QPixmap(":/cursors/move-cut.png"), 1, 1));
     m_cursors.insert(Selection, new QCursor(QPixmap(":/cursors/select.png"), 1, 1));
     m_cursors.insert(SelectLayer, new QCursor(QPixmap(":/cursors/select-layer.png"), 7, 1));
+    m_cursors.insert(Wand, new QCursor(QPixmap(":/cursors/wand.png"), 7, 6));
 
     this->setCursor(Cross);
 }

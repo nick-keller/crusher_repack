@@ -42,5 +42,6 @@
         <file>cursors/select-layer.png</file>
         <file>tools/bucket.png</file>
         <file>cursors/bucket.png</file>
+        <file>cursors/wand.png</file>
     </qresource>
 </RCC>
