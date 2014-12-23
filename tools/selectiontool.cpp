@@ -7,7 +7,7 @@ SelectionTool::SelectionTool(ColorPicker* colorPicker, Name toolName, QString na
 
 void SelectionTool::mousePressEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection)
 {
-    if(*useSelection && QColor(selection->pixel(mouse.getPos())) == Qt::white){
+    if(*useSelection && m_selectionMode == "only" && QColor(selection->pixel(mouse.getPos())) == Qt::white){
         m_moving = true;
 
         m_movingSelection = QImage(layer->size(), QImage::Format_ARGB32);
@@ -53,7 +53,7 @@ void SelectionTool::mouseMoveEvent(MouseState mouse, QImage *layer, QImage *hud,
         painterHud.drawPixmap(0, 0, temp);
     }
     else{
-        if(*useSelection && QColor(selection->pixel(mouse.getPos())) == Qt::white)
+        if(*useSelection && m_selectionMode == "only" && QColor(selection->pixel(mouse.getPos())) == Qt::white)
             this->setCursor(Selection);
         else
             this->setCorrectCursor();
