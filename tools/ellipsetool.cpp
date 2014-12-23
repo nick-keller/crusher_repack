@@ -28,7 +28,7 @@ void EllipseTool::mouseReleaseEvent(MouseState mouse, QImage *layer, QImage *hud
 
 void EllipseTool::drawEllipse(MouseState mouse, QImage *image, QImage *selection, bool *useSelection)
 {
-    QImage temp(image->size(), QImage::Format_ARGB32);
+    QImage temp(image->size(), image->format());
     temp.fill(Qt::transparent);
     QPainter painter(&temp);
 

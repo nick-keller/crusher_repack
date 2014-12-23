@@ -9,7 +9,7 @@ void MoveTool::mousePressEvent(MouseState mouse, QImage *layer, QImage *hud, QIm
 {
     if(mouse.isButtonDown(Qt::LeftButton)){
         if(*useSelection){
-            m_movingLayer = QImage(layer->size(), QImage::Format_ARGB32);
+            m_movingLayer = QImage(layer->size(), layer->format());
             m_movingLayer.fill(Qt::transparent);
 
             QPainter painter(&m_movingLayer);
@@ -39,11 +39,9 @@ void MoveTool::mousePressEvent(MouseState mouse, QImage *layer, QImage *hud, QIm
 void MoveTool::mouseMoveEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection)
 {
     if(mouse.isButtonDown(Qt::LeftButton)){
-        QPoint delta = mouse.getPos() - mouse.getClickedAt();
-
         hud->fill(Qt::transparent);
         QPainter painter(hud);
-        painter.drawImage(delta, m_movingLayer);
+        painter.drawImage(mouse.delta(), m_movingLayer);
     }
     else{
         if(*useSelection && QColor(selection->pixel(mouse.getPos())) == Qt::white)
@@ -58,10 +56,8 @@ void MoveTool::mouseReleaseEvent(MouseState mouse, QImage *layer, QImage *hud, Q
     hud->fill(Qt::transparent);
 
     if(!mouse.isButtonDown(Qt::LeftButton)){
-        QPoint delta = mouse.getPos() - mouse.getClickedAt();
-
         QPainter painter(layer);
-        painter.drawImage(delta, m_movingLayer);
+        painter.drawImage(mouse.delta(), m_movingLayer);
 
         if(*useSelection){
             selection->fill(Qt::transparent);
@@ -75,7 +71,7 @@ void MoveTool::mouseReleaseEvent(MouseState mouse, QImage *layer, QImage *hud, Q
             painter.end();
 
             painter.begin(selection);
-            painter.drawImage(delta, m_movingLayer);
+            painter.drawImage(mouse.delta(), m_movingLayer);
         }
     }
 }

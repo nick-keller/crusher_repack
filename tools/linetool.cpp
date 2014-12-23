@@ -30,7 +30,7 @@ void LineTool::mouseReleaseEvent(MouseState mouse, QImage *layer, QImage *hud, Q
 
 void LineTool::drawLine(MouseState mouse, QImage *image, QImage *selection, bool *useSelection)
 {
-    QImage temp(image->size(), QImage::Format_ARGB32);
+    QImage temp(image->size(), image->format());
     temp.fill(Qt::transparent);
 
     if(m_brushSize->value() == 1){

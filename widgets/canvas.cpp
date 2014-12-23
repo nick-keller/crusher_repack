@@ -47,7 +47,7 @@ bool Canvas::isPointSelected(int x, int y)
 void Canvas::modifySelection(int radius, bool sharp, QColor expand)
 {
     int size = radius *2 +1;
-    QImage element(size, size, QImage::Format_ARGB32);
+    QImage element(size, size, m_selection.format());
     element.fill(Qt::transparent);
 
     if(sharp)
@@ -58,7 +58,7 @@ void Canvas::modifySelection(int radius, bool sharp, QColor expand)
         Tool::drawPerfectEllipse(&painter, 0, 0, size -1, size -1, true);
     }
 
-    QImage newSelection(m_selection.width() +2, m_selection.height() +2, QImage::Format_ARGB32);
+    QImage newSelection(m_selection.width() +2, m_selection.height() +2, m_selection.format());
     newSelection.fill(Qt::transparent);
     QPainter painter(&newSelection);
     painter.drawImage(1, 1, m_selection);

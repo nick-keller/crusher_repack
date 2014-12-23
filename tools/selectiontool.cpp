@@ -15,7 +15,7 @@ void SelectionTool::mousePressEvent(MouseState mouse, QImage *layer, QImage *hud
     if(*useSelection && m_selectionMode == "only" && QColor(selection->pixel(mouse.getPos())) == Qt::white){
         m_moving = true;
 
-        m_movingSelection = QImage(layer->size(), QImage::Format_ARGB32);
+        m_movingSelection = QImage(layer->size(), layer->format());
         m_movingSelection.fill(GREEN_SELECTION);
         QPainter painter(&m_movingSelection);
         painter.setCompositionMode(QPainter::CompositionMode_DestinationIn);
