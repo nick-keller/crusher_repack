@@ -268,7 +268,8 @@ void MainWindow::toolSelected(QAction *action)
 
 void MainWindow::cursorChanged(QCursor *cursor)
 {
-    this->getWorkspace()->setCursor(*cursor);
+    if(this->getWorkspace() != 0)
+        this->getWorkspace()->setCursor(*cursor);
 }
 
 void MainWindow::saveDocument()
