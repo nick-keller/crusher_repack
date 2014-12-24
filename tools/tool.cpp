@@ -120,12 +120,13 @@ QComboBox *Tool::createCapSelector()
 
 QSpinBox *Tool::createBrushSizeSelector()
 {
-    QLabel *label = new QLabel("Outline: ", m_toolbar);
     QSpinBox *selector = new QSpinBox(m_toolbar);
     selector->setMinimum(0);
-    selector->setMaximum(20);
+    selector->setMaximum(64);
     selector->setSuffix(" px");
     selector->setValue(1);
+
+    MagicLabel *label = new MagicLabel("Outline: ", selector, m_toolbar);
 
     m_toolbar->addWidget(label);
     m_toolbar->addWidget(selector);

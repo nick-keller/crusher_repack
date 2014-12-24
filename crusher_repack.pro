@@ -23,7 +23,8 @@ SOURCES += \
     dialogs/smoothselection.cpp \
     tools/buckettool.cpp \
     tools/wandtool.cpp \
-    dialogs/fillselector.cpp
+    dialogs/fillselector.cpp \
+    widgets/magiclabel.cpp
 
 HEADERS += \
     src/layer.h \
@@ -48,7 +49,8 @@ HEADERS += \
     dialogs/smoothselection.h \
     tools/buckettool.h \
     tools/wandtool.h \
-    dialogs/fillselector.h
+    dialogs/fillselector.h \
+    widgets/magiclabel.h
 
 RESOURCES += \
     icons.qrc

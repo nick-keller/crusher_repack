@@ -5,6 +5,7 @@
 #include <cmath>
 #include "../src/mousestate.h"
 #include "../widgets/colorpicker.h"
+#include "../widgets/magiclabel.h"
 
 class Tool : public QObject
 {
