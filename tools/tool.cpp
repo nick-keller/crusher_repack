@@ -350,31 +350,9 @@ void Tool::drawInSelection(QImage *target, QImage *source, QImage *selection, bo
     targetPainter.drawImage(0, 0, *source);
 }
 
-QBrush Tool::getBrush(BrushSelector::FillType type, QPixmap pattern)
-{
-    QBrush brush;
-
-    switch (type) {
-    case BrushSelector::None :
-        brush = QBrush(Qt::NoBrush);
-        break;
-    case BrushSelector::Black :
-        brush = QBrush(QColor(40, 40, 40));
-        break;
-    case BrushSelector::White :
-        brush = QBrush(QColor(247, 247, 247));
-        break;
-    case BrushSelector::Pattern :
-        brush = QBrush(pattern);
-        break;
-    }
-
-    return brush;
-}
-
 QBrush Tool::getFillBrush()
 {
-    return this->getBrush(m_colorPicker->getFillType(), m_colorPicker->getFillPattern());
+    return m_colorPicker->getFillBrush();
 }
 
 QPen Tool::getFillPen()
@@ -384,7 +362,7 @@ QPen Tool::getFillPen()
 
 QBrush Tool::getOutlineBrush()
 {
-    return this->getBrush(m_colorPicker->getOutlineType(), m_colorPicker->getOutlinePattern());
+    return m_colorPicker->getOutlineBrush();
 }
 
 QPen Tool::getOutlinePen()

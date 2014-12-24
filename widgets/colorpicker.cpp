@@ -28,6 +28,38 @@ ColorPicker::ColorPicker(QWidget *parent) :
     this->addAction(initAction);
 }
 
+QBrush ColorPicker::getBrush(BrushSelector::FillType type, QPixmap pattern)
+{
+    QBrush brush;
+
+    switch (type) {
+    case BrushSelector::None :
+        brush = QBrush(Qt::NoBrush);
+        break;
+    case BrushSelector::Black :
+        brush = QBrush(QColor(40, 40, 40));
+        break;
+    case BrushSelector::White :
+        brush = QBrush(QColor(247, 247, 247));
+        break;
+    case BrushSelector::Pattern :
+        brush = QBrush(pattern);
+        break;
+    }
+
+    return brush;
+}
+
+QBrush ColorPicker::getFillBrush()
+{
+    return this->getBrush(this->getFillType(), this->getFillPattern());
+}
+
+QBrush ColorPicker::getOutlineBrush()
+{
+    return this->getBrush(this->getOutlineType(), this->getOutlinePattern());
+}
+
 void ColorPicker::paintEvent(QPaintEvent *event)
 {
     QPainter painter(&m_background);

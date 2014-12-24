@@ -12,8 +12,13 @@ public:
 
     BrushSelector::FillType getOutlineType(){return m_outlineSelector.getType();}
     BrushSelector::FillType getFillType(){return m_fillSelector.getType();}
+
     QPixmap getOutlinePattern(){return m_outlineSelector.getPattern();}
     QPixmap getFillPattern(){return m_fillSelector.getPattern();}
+
+    QBrush getBrush(BrushSelector::FillType, QPixmap);
+    QBrush getFillBrush();
+    QBrush getOutlineBrush();
 
 protected:
     void paintEvent(QPaintEvent *event);

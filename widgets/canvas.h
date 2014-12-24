@@ -37,6 +37,7 @@ public:
     QImage copy();
     void paste(QImage);
     void clear();
+    void fillSelection(QBrush);
 
 protected:
     void paintEvent(QPaintEvent *event);

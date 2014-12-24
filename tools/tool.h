@@ -47,7 +47,6 @@ protected:
 
     // Painter helpers
     QPainter    *getPainter(QPaintDevice *device);
-    QBrush      getBrush(BrushSelector::FillType, QPixmap);
     QBrush      getFillBrush();
     QPen        getFillPen();
     QBrush      getOutlineBrush();

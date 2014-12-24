@@ -185,7 +185,7 @@ void MainWindow::createDialogs()
     m_dialogs.insert("expand", new ModifySelection("Expand", this));
     m_dialogs.insert("contract", new ModifySelection("Contract", this));
     m_dialogs.insert("smooth selection", new SmoothSelection(this));
-    m_dialogs.insert("fill", new FillSelector(this));
+    m_dialogs.insert("fill", new FillSelector(m_colorPicker, this));
 }
 
 Workspace *MainWindow::getWorkspace()
@@ -317,8 +317,8 @@ void MainWindow::fill()
     if(code == QDialog::Rejected)
         return;
 
-//    ModifySelection *dialog = (ModifySelection*) m_dialogs["expand"];
-//    this->getWorkspace()->getCanvas()->expandSelection(dialog->radius(), dialog->sharp());
+    FillSelector *dialog = (FillSelector*) m_dialogs["fill"];
+    this->getWorkspace()->getCanvas()->fillSelection(dialog->getBrush());
 }
 
 void MainWindow::createNewLayer()

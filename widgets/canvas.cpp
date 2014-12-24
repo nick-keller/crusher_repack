@@ -182,6 +182,26 @@ void Canvas::clear()
     m_layers->update();
 }
 
+void Canvas::fillSelection(QBrush brush)
+{
+    QImage temp(m_selection.size(), m_selection.format());
+    temp.fill(Qt::transparent);
+
+    QPainter painter(&temp);
+    painter.drawImage(0, 0, m_selection);
+    painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+    painter.setPen(QPen(Qt::NoPen));
+    painter.setBrush(brush);
+    painter.drawRect(0, 0, temp.width(), temp.height());
+    painter.end();
+
+    painter.begin(m_layers->getImage());
+    painter.drawImage(0, 0, temp);
+
+    update();
+    m_layers->update();
+}
+
 void Canvas::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
