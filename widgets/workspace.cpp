@@ -139,6 +139,10 @@ bool Workspace::saveAs()
         m_file = fileInfo.absoluteFilePath();
         this->setModified(false);
     }
+    else{
+        QImage image = m_canvas->getLayerStack()->getFlattenedImage();
+        image.save(fileInfo.absoluteFilePath());
+    }
 
     return true;
 }

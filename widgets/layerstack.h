@@ -18,6 +18,8 @@ public:
     QImage *getImage(){return m_layers[m_selectedLayer].getImage();}
     QImage *getHud(){return m_hud.getImage();}
 
+    QImage getFlattenedImage();
+
 protected:
     void paintEvent(QPaintEvent *event);
     void mouseMoveEvent(QMouseEvent *event);

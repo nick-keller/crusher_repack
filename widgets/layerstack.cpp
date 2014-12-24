@@ -13,6 +13,20 @@ int LayerStack::isLayerVisible(int i)
     return m_layers[i].getVisible();
 }
 
+QImage LayerStack::getFlattenedImage()
+{
+    QImage image(m_layers[0].getImage()->size(), m_layers[0].getImage()->format());
+    image.fill(QColor(247, 247, 247));
+
+    QPainter painter(&image);
+
+    for(int i(0); i < m_layers.count(); ++i)
+        if(m_layers[i].getVisible())
+            painter.drawImage(0, 0, *m_layers[i].getImage());
+
+    return image;
+}
+
 void LayerStack::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
