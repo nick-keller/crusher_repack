@@ -248,7 +248,7 @@ void MainWindow::documentClosed()
         for(int i(0); i < m_actionsSelectionNotActivated.size(); ++i)
             m_actionsSelectionNotActivated[i]->setEnabled(false);
 
-        m_actions["reselect"]->setDisabled(true);
+        m_menus["modify"]->setDisabled(true);
     }
 }
 
