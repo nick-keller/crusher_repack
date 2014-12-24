@@ -48,6 +48,7 @@ QToolBar *Tool::getToolBar(QWidget *parent)
     icon->setMargin(8);
     m_toolbar->addWidget(icon);
     m_toolbar->addSeparator();
+    this->createSpacer();
 
     this->createToolBar();
     return m_toolbar;
@@ -78,6 +79,7 @@ QComboBox *Tool::createAngleSelector()
 
     m_toolbar->addWidget(label);
     m_toolbar->addWidget(selector);
+    this->createSpacer();
 
     m_joinType = selector;
 
@@ -92,6 +94,7 @@ QComboBox *Tool::createOutlineSelector()
     selector->addItem(QIcon(":/icons/outside.png"), "Outside");
 
     m_toolbar->addWidget(selector);
+    this->createSpacer();
 
     m_outlineType = selector;
 
@@ -108,6 +111,7 @@ QComboBox *Tool::createCapSelector()
 
     m_toolbar->addWidget(label);
     m_toolbar->addWidget(selector);
+    this->createSpacer();
 
     m_capType = selector;
 
@@ -125,9 +129,17 @@ QSpinBox *Tool::createBrushSizeSelector()
 
     m_toolbar->addWidget(label);
     m_toolbar->addWidget(selector);
+    this->createSpacer();
 
     m_brushSize = selector;
     return selector;
+}
+
+void Tool::createSpacer()
+{
+    QWidget *spacer = new QWidget;
+    spacer->setFixedWidth(5);
+    m_toolbar->addWidget(spacer);
 }
 
 QPainter *Tool::getPainter(QPaintDevice *device)

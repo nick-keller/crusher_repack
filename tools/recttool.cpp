@@ -10,6 +10,7 @@ void RectTool::createToolBar()
     this->createBrushSizeSelector();
     this->createOutlineSelector();
     m_toolbar->addSeparator();
+    this->createSpacer();
     this->createAngleSelector();
 }
 

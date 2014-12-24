@@ -43,6 +43,7 @@ protected:
     QComboBox   *createOutlineSelector();
     QComboBox   *createCapSelector();
     QSpinBox    *createBrushSizeSelector();
+    void        createSpacer();
 
     // Painter helpers
     QPainter    *getPainter(QPaintDevice *device);

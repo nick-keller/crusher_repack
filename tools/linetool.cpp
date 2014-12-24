@@ -8,6 +8,7 @@ void LineTool::createToolBar()
 {
     this->createBrushSizeSelector();
     m_toolbar->addSeparator();
+    this->createSpacer();
     this->createCapSelector();
     m_brushSize->setMinimum(1);
 }
