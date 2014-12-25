@@ -8,6 +8,7 @@
 #include "../dialogs/modifyselection.h"
 #include "../dialogs/smoothselection.h"
 #include "../dialogs/fillselector.h"
+#include "../dialogs/importdialog.h"
 
 class MainWindow : public QMainWindow
 {

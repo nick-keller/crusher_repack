@@ -226,7 +226,22 @@ void MainWindow::openDocument()
 {
     QSettings settings("crusher.ini", QSettings::IniFormat);
 
-    QString path = QFileDialog::getOpenFileName(this, "Open", settings.value("path/open").toString(), "Any (*.crd *.png *.jpg);;Crusher Document (*.crd);;Image (*.png *.jpg)");
+    QString fileName = QFileDialog::getOpenFileName(this, "Open", settings.value("path/open").toString(), "Any (*.crd *.png *.jpg);;Crusher Document (*.crd);;Image (*.png *.jpg)");
+
+    if(fileName.isNull())
+        return;
+
+    QFileInfo fileInfo(fileName);
+    settings.setValue("path/open", fileInfo.absoluteDir().absolutePath());
+
+    if(fileInfo.suffix() == "crd"){
+
+    }
+    else{
+        QImage file(fileName);
+        ImportDialog dialog(file, this);
+        dialog.exec();
+    }
 }
 
 void MainWindow::closeDocument()

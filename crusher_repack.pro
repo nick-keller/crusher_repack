@@ -25,7 +25,9 @@ SOURCES += \
     tools/wandtool.cpp \
     dialogs/fillselector.cpp \
     widgets/magiclabel.cpp \
-    tools/gradienttool.cpp
+    tools/gradienttool.cpp \
+    dialogs/importdialog.cpp \
+    widgets/imagecropper.cpp
 
 HEADERS += \
     src/layer.h \
@@ -52,7 +54,9 @@ HEADERS += \
     tools/wandtool.h \
     dialogs/fillselector.h \
     widgets/magiclabel.h \
-    tools/gradienttool.h
+    tools/gradienttool.h \
+    dialogs/importdialog.h \
+    widgets/imagecropper.h
 
 RESOURCES += \
     icons.qrc
@@ -61,6 +65,7 @@ FORMS += \
     dialogs/brushselector.ui \
     dialogs/modifyselection.ui \
     dialogs/smoothselection.ui \
-    dialogs/fillselector.ui
+    dialogs/fillselector.ui \
+    dialogs/importdialog.ui
 
 QMAKE_CFLAGS = -Wno-unused-parameter
