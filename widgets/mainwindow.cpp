@@ -148,13 +148,19 @@ void MainWindow::createToolBars()
 
 void MainWindow::createDocks()
 {
+    QPalette palette;
+    palette.setColor(QPalette::Window, QColor(198 ,198, 198));
+
     m_layersArea = new QScrollArea;
-    m_layersArea->setBackgroundRole(QPalette::Dark);
+    m_layersArea->setPalette(palette);
     m_layersArea->setWidgetResizable(true);
     m_layersArea->setMinimumWidth(250);
 
     QPushButton *newLayerButton = new QPushButton(QIcon(":/icons/newlayer.png"), "");
     QPushButton *removeLayerButton = new QPushButton(QIcon(":/icons/trash.png"), "");
+    newLayerButton->setFlat(true);
+    removeLayerButton->setFlat(true);
+
     QObject::connect(newLayerButton, SIGNAL(clicked()), m_actions["new layer"], SLOT(trigger()));
     QObject::connect(removeLayerButton, SIGNAL(clicked()), m_actions["remove layer"], SLOT(trigger()));
 
