@@ -9,5 +9,6 @@
 #include "movetool.h"
 #include "buckettool.h"
 #include "wandtool.h"
+#include "gradienttool.h"
 
 #endif // TOOLS_H

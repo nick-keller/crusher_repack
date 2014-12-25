@@ -44,5 +44,6 @@
         <file>cursors/bucket.png</file>
         <file>cursors/wand.png</file>
         <file>tools/wand.png</file>
+        <file>tools/gradient.png</file>
     </qresource>
 </RCC>

@@ -24,7 +24,8 @@ SOURCES += \
     tools/buckettool.cpp \
     tools/wandtool.cpp \
     dialogs/fillselector.cpp \
-    widgets/magiclabel.cpp
+    widgets/magiclabel.cpp \
+    tools/gradienttool.cpp
 
 HEADERS += \
     src/layer.h \
@@ -50,7 +51,8 @@ HEADERS += \
     tools/buckettool.h \
     tools/wandtool.h \
     dialogs/fillselector.h \
-    widgets/magiclabel.h
+    widgets/magiclabel.h \
+    tools/gradienttool.h
 
 RESOURCES += \
     icons.qrc
