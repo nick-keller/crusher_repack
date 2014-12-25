@@ -41,6 +41,13 @@ void GradientTool::createToolBar()
     m_toolbar->addWidget(m_from);
     this->createSpacer();
 
+    QPushButton *swap = new QPushButton(QIcon(":/icons/swap.png"), "", m_toolbar);
+    swap->setFlat(true);
+    QObject::connect(swap, SIGNAL(clicked()), this, SLOT(swap()));
+
+    m_toolbar->addWidget(swap);
+    this->createSpacer();
+
     QLabel *labelTo = new QLabel("To: ", m_toolbar);
     m_to = new QComboBox(m_toolbar);
     m_to->addItem(QIcon(":/icons/black.png"), "Black");
@@ -58,6 +65,7 @@ void GradientTool::createToolBar()
     m_ditheringLevel = new QSpinBox(m_toolbar);
     m_ditheringLevel->setRange(1, 5);
     m_ditheringLevel->setValue(3);
+    m_ditheringLevel->setFixedWidth(40);
     MagicLabel *labelLevel = new MagicLabel("Level: ", m_ditheringLevel, m_toolbar);
 
     m_toolbar->addWidget(m_dithering);
@@ -146,4 +154,11 @@ void GradientTool::updateBrushes()
         painter.drawImage(-i*4, 0, gradientPatterns);
         m_brushes.append(QBrush(texture));
     }
+}
+
+void GradientTool::swap()
+{
+    int index = m_from->currentIndex();
+    m_from->setCurrentIndex(m_to->currentIndex());
+    m_to->setCurrentIndex(index);
 }

@@ -22,6 +22,7 @@ private:
 
 public slots:
     void updateBrushes();
+    void swap();
 
 private:
     QComboBox *m_from;
