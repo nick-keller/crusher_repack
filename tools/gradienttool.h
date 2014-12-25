@@ -5,6 +5,8 @@
 
 class GradientTool : public Tool
 {
+    Q_OBJECT
+
 public:
     GradientTool(ColorPicker *colorPicker);
 
@@ -15,14 +17,18 @@ protected:
     void createToolBar();
 
 private:
-    void drawGradient(MouseState mouse, QImage* image, QColor from, QColor to, bool dithering);
+    void drawGradient(MouseState mouse, QImage* image, QColor from, QColor to);
     QColor getColor(QString);
+
+public slots:
+    void updateBrushes();
 
 private:
     QComboBox *m_from;
     QComboBox *m_to;
     QCheckBox *m_dithering;
     QSpinBox *m_ditheringLevel;
+    QList<QBrush> m_brushes;
 };
 
 #endif // GRADIENTTOOL_H

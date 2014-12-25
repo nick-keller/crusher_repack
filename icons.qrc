@@ -45,5 +45,6 @@
         <file>cursors/wand.png</file>
         <file>tools/wand.png</file>
         <file>tools/gradient.png</file>
+        <file>icons/gradient.png</file>
     </qresource>
 </RCC>

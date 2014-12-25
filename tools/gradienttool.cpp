@@ -12,7 +12,7 @@ void GradientTool::mouseMoveEvent(MouseState mouse, QImage *layer, QImage *hud, 
         QImage temp(layer->size(), layer->format());
         temp.fill(Qt::transparent);
 
-        this->drawGradient(mouse, &temp, this->getColor(m_from->currentText()), this->getColor(m_to->currentText()), false);
+        this->drawGradient(mouse, &temp, this->getColor(m_from->currentText()), this->getColor(m_to->currentText()));
         this->drawInSelection(hud, &temp, selection, useSelection);
     }
 }
@@ -24,7 +24,7 @@ void GradientTool::mouseReleaseEvent(MouseState mouse, QImage *layer, QImage *hu
     QImage temp(layer->size(), layer->format());
     temp.fill(Qt::transparent);
 
-    this->drawGradient(mouse, &temp, this->getColor(m_from->currentText()), this->getColor(m_to->currentText()), false);
+    this->drawGradient(mouse, &temp, this->getColor(m_from->currentText()), this->getColor(m_to->currentText()));
     this->drawInSelection(layer, &temp, selection, useSelection);
 }
 
@@ -65,9 +65,12 @@ void GradientTool::createToolBar()
     m_toolbar->addWidget(labelLevel);
     m_toolbar->addWidget(m_ditheringLevel);
 
+    this->updateBrushes();
+    QObject::connect(m_from, SIGNAL(currentIndexChanged(int)), this, SLOT(updateBrushes()));
+    QObject::connect(m_to, SIGNAL(currentIndexChanged(int)), this, SLOT(updateBrushes()));
 }
 
-void GradientTool::drawGradient(MouseState mouse, QImage *image, QColor from, QColor to, bool dithering)
+void GradientTool::drawGradient(MouseState mouse, QImage *image, QColor from, QColor to)
 {
     QPainter painter(image);
 
@@ -82,12 +85,17 @@ void GradientTool::drawGradient(MouseState mouse, QImage *image, QColor from, QC
             QPoint point = QPoint(i, j) - mouse.getClickedAt();
             float val = (float)(point.x() * vecX + point.y() * vecY) / length;
 
-            val = 100* std::min(1.f, std::max(0.f, val));
+            val = std::min(1.f, std::max(0.f, val));
 
-            if(qrand() %100 < val)
-                painter.setPen(QPen(to));
-            else
-                painter.setPen(QPen(from));
+            if(m_dithering->isChecked()){
+                painter.setPen(QPen(m_brushes[(int) round(val * std::pow(2, m_ditheringLevel->value() -1)) * std::pow(2, 5-m_ditheringLevel->value())], 1));
+            }
+            else{
+                if(qrand() %128 < val *128)
+                    painter.setPen(QPen(to));
+                else
+                    painter.setPen(QPen(from));
+            }
 
             painter.drawPoint(i, j);
         }
@@ -102,4 +110,40 @@ QColor GradientTool::getColor(QString name)
         return QColor(247, 247, 247);
 
     return Qt::transparent;
+}
+
+void GradientTool::updateBrushes()
+{
+    QImage gradientPatterns(":/icons/gradient.png");
+    QPixmap texture(4, 4);
+    QPainter painter(&gradientPatterns);
+
+    for(int i(0); i < gradientPatterns.width(); ++i){
+        for(int j(0); j < gradientPatterns.height(); ++j){
+            QColor color = QColor(gradientPatterns.pixel(i, j));
+
+            painter.setCompositionMode(QPainter::CompositionMode_DestinationOut);
+            painter.setPen(QPen(Qt::black));
+            painter.drawPoint(i, j);
+
+            if(color == Qt::white)
+                painter.setPen(QPen(this->getColor(m_from->currentText())));
+            else
+                painter.setPen(QPen(this->getColor(m_to->currentText())));
+
+            painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+            painter.drawPoint(i, j);
+        }
+    }
+
+    painter.end();
+    painter.begin(&texture);
+    painter.setCompositionMode(QPainter::CompositionMode_Source);
+
+    m_brushes.clear();
+
+    for(int i(0); i < gradientPatterns.width()/4; ++i){
+        painter.drawImage(-i*4, 0, gradientPatterns);
+        m_brushes.append(QBrush(texture));
+    }
 }
