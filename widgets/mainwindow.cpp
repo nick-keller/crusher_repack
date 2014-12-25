@@ -42,6 +42,7 @@ void MainWindow::createMenus()
     QMenu *menuFile = menuBar->addMenu("&File");
 
     m_actions.insert("new", menuFile->addAction("New", this, SLOT(createNewDocument()), QString("Ctrl+N")));
+    m_actions.insert("open", menuFile->addAction("Open...", this, SLOT(openDocument()), QString("Ctrl+O")));
     menuFile->addSeparator();
     m_actions.insert("close", menuFile->addAction("Close", this, SLOT(closeDocument()), QString("Ctrl+W")));
     m_actions.insert("close all", menuFile->addAction("Close all", this, SLOT(closeAllDocuments()), QString("Alt+Ctrl+W")));
@@ -219,6 +220,13 @@ void MainWindow::createNewDocument()
 
     for(int i(0); i < m_actionsSelectionNotActivated.size(); ++i)
         m_actionsSelectionNotActivated[i]->setEnabled(true);
+}
+
+void MainWindow::openDocument()
+{
+    QSettings settings("crusher.ini", QSettings::IniFormat);
+
+    QString path = QFileDialog::getOpenFileName(this, "Open", settings.value("path/open").toString(), "Any (*.crd *.png *.jpg);;Crusher Document (*.crd);;Image (*.png *.jpg)");
 }
 
 void MainWindow::closeDocument()

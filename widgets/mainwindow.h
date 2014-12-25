@@ -31,6 +31,7 @@ signals:
 public slots:
     // File
     void createNewDocument();
+    void openDocument();
     void closeDocument();
     void closeAllDocuments();
     void saveDocument();
