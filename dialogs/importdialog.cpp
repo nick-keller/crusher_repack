@@ -14,6 +14,8 @@ ImportDialog::ImportDialog(QImage image, QWidget *parent) :
     QObject::connect(ui->crop, SIGNAL(clicked()), ui->cropper, SLOT(setCroppingCrop()));
     QObject::connect(ui->fit, SIGNAL(clicked()), ui->cropper, SLOT(setCroppingFit()));
     QObject::connect(ui->stretch, SIGNAL(clicked()), ui->cropper, SLOT(setCroppingStretch()));
+    QObject::connect(ui->dithering, SIGNAL(toggled(bool)), ui->importer, SLOT(setDithering(bool)));
+    QObject::connect(ui->ditheringLevel, SIGNAL(valueChanged(int)), ui->importer, SLOT(setDitheringLevel(int)));
 
     ui->cropper->setImage(image);
 }
