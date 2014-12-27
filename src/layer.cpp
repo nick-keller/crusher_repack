@@ -1,6 +1,6 @@
 #include "layer.h"
 
-Layer::Layer(int id) : m_visible(true), m_eyePixmap(":/icons/eye.png"), m_layer(128, 64, QImage::Format_ARGB32)
+Layer::Layer(int id) : m_visible(true), m_eyePixmap(":/icons/eye.png"), m_layer(SCREEN_WIDTH, SCREEN_HEIGHT, QImage::Format_ARGB32)
 {
     m_name = "Layer " + QString::number(id);
     m_layer.fill(QColor(0, 0, 0, 0));

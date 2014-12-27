@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include <cmath>
 #include "../src/mousestate.h"
+#include "../src/const.h"
 
 #define MAX_WIDGET_SIZE 180
 #define BACKGROUND_PATTERN_SIZE 8

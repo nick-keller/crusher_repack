@@ -17,9 +17,9 @@ FillSelector::~FillSelector()
 QBrush FillSelector::getBrush()
 {
     if(ui->selector->currentText() == "Black")
-        return QBrush(QColor(40, 40, 40));
+        return QBrush(BLACK);
     if(ui->selector->currentText() == "White")
-        return QBrush(QColor(247, 247, 247));
+        return QBrush(WHITE);
     if(ui->selector->currentText() == "Fill color")
         return m_colorPicker->getFillBrush();
     if(ui->selector->currentText() == "Outline color")

@@ -113,9 +113,9 @@ void GradientTool::drawGradient(MouseState mouse, QImage *image, QColor from, QC
 QColor GradientTool::getColor(QString name)
 {
     if(name == "Black")
-        return QColor(40, 40, 40);
+        return BLACK;
     if(name == "White")
-        return QColor(247, 247, 247);
+        return WHITE;
 
     return Qt::transparent;
 }

@@ -2,6 +2,7 @@
 #define LAYER_H
 
 #include <QtWidgets>
+#include "../src/const.h"
 
 #define LAYER_HEIGHT 35
 #define LAYER_EYE_WIDTH 30

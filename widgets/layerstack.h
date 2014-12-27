@@ -5,6 +5,7 @@
 #include <cmath>
 #include "../src/layer.h"
 #include "../src/mousestate.h"
+#include "../src/const.h"
 
 class LayerStack : public QWidget
 {

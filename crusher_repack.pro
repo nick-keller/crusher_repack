@@ -27,7 +27,8 @@ SOURCES += \
     widgets/magiclabel.cpp \
     tools/gradienttool.cpp \
     dialogs/importdialog.cpp \
-    widgets/imagecropper.cpp
+    widgets/imagecropper.cpp \
+    widgets/imageimporter.cpp
 
 HEADERS += \
     src/layer.h \
@@ -56,7 +57,9 @@ HEADERS += \
     widgets/magiclabel.h \
     tools/gradienttool.h \
     dialogs/importdialog.h \
-    widgets/imagecropper.h
+    widgets/imagecropper.h \
+    widgets/imageimporter.h \
+    src/const.h
 
 RESOURCES += \
     icons.qrc

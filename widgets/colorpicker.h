@@ -3,6 +3,7 @@
 
 #include <QtWidgets>
 #include "../dialogs/brushselector.h"
+#include "../src/const.h"
 
 class ColorPicker : public QWidget
 {

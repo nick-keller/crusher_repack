@@ -37,10 +37,10 @@ QBrush ColorPicker::getBrush(BrushSelector::FillType type, QPixmap pattern)
         brush = QBrush(Qt::NoBrush);
         break;
     case BrushSelector::Black :
-        brush = QBrush(QColor(40, 40, 40));
+        brush = QBrush(BLACK);
         break;
     case BrushSelector::White :
-        brush = QBrush(QColor(247, 247, 247));
+        brush = QBrush(WHITE);
         break;
     case BrushSelector::Pattern :
         brush = QBrush(pattern);

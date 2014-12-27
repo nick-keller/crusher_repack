@@ -1,19 +1,15 @@
 #ifndef CANVAS_H
 #define CANVAS_H
 
-#define WHITE QColor(247, 247, 247)
-#define BLACK QColor(40, 40, 40)
 #define BORDER QColor(128, 128, 128, 100)
 #define BACKGROUND QColor(204,204,204)
 
 #define GRID_MIN_ZOOM_LEVEL 6
 #define INIT_ZOOM_LEVEL 6
 
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
-
 #include <QtWidgets>
 #include "layerstack.h"
+#include "../src/const.h"
 
 class MainWindow;
 class Canvas : public QWidget

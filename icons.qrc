@@ -47,5 +47,8 @@
         <file>tools/gradient.png</file>
         <file>icons/gradient.png</file>
         <file>icons/swap.png</file>
+        <file>icons/crop.png</file>
+        <file>icons/fit.png</file>
+        <file>icons/stretch.png</file>
     </qresource>
 </RCC>

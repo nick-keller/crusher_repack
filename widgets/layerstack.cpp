@@ -16,7 +16,7 @@ int LayerStack::isLayerVisible(int i)
 QImage LayerStack::getFlattenedImage()
 {
     QImage image(m_layers[0].getImage()->size(), m_layers[0].getImage()->format());
-    image.fill(QColor(247, 247, 247));
+    image.fill(WHITE);
 
     QPainter painter(&image);
 

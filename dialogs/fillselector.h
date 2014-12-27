@@ -3,6 +3,7 @@
 
 #include <QtWidgets>
 #include "../widgets/colorpicker.h"
+#include "../src/const.h"
 
 namespace Ui {
 class FillSelector;

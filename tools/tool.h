@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include <cmath>
 #include "../src/mousestate.h"
+#include "../src/const.h"
 #include "../widgets/colorpicker.h"
 #include "../widgets/magiclabel.h"
 
