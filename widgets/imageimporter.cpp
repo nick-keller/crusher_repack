@@ -1,10 +1,15 @@
 #include "imageimporter.h"
 
 ImageImporter::ImageImporter(QWidget *parent) :
-    QWidget(parent), m_showOriginal(false), m_dithering(false), m_ditheringLevel(3)
+    QWidget(parent), m_showOriginal(false), m_dithering(true), m_ditheringLevel(3)
 {
     this->setFixedSize(258, 130);
     this->createBrushes();
+}
+
+QImage ImageImporter::getResult()
+{
+    return m_result;
 }
 
 void ImageImporter::paintEvent(QPaintEvent *)

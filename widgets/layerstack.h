@@ -14,6 +14,7 @@ public:
     explicit LayerStack(QWidget *parent = 0);
     int count(){return m_layers.count();}
     int isLayerVisible(int i);
+    void setOnlyLayer(QImage);
 
     QImage *getImage(int i){return m_layers[i].getImage();}
     QImage *getImage(){return m_layers[m_selectedLayer].getImage();}

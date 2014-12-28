@@ -240,7 +240,15 @@ void MainWindow::openDocument()
     else{
         QImage file(fileName);
         ImportDialog dialog(file, this);
-        dialog.exec();
+
+
+        QDialog::DialogCode code = static_cast<QDialog::DialogCode>(dialog.exec());
+
+        if(code == QDialog::Rejected)
+            return;
+
+        this->createNewDocument();
+        this->getWorkspace()->getCanvas()->getLayerStack()->setOnlyLayer(dialog.getResult());
     }
 }
 

@@ -15,6 +15,8 @@ public:
     explicit ImportDialog(QImage, QWidget *parent = 0);
     ~ImportDialog();
 
+    QImage getResult();
+
 private:
     Ui::ImportDialog *ui;
 };

@@ -11,6 +11,8 @@ class ImageImporter : public QWidget
 public:
     explicit ImageImporter(QWidget *parent = 0);
 
+    QImage getResult();
+
 protected:
     void paintEvent(QPaintEvent *);
 

@@ -6,7 +6,6 @@ ImportDialog::ImportDialog(QImage image, QWidget *parent) :
     ui(new Ui::ImportDialog)
 {
     ui->setupUi(this);
-    ui->dithering->setChecked(false);
 
     QObject::connect(ui->cropper, SIGNAL(imageCropped(QImage)), ui->importer, SLOT(setImage(QImage)));
     QObject::connect(ui->cropper, SIGNAL(imageCropping(QImage)), ui->importer, SLOT(setPreview(QImage)));
@@ -23,4 +22,9 @@ ImportDialog::ImportDialog(QImage image, QWidget *parent) :
 ImportDialog::~ImportDialog()
 {
     delete ui;
+}
+
+QImage ImportDialog::getResult()
+{
+    return ui->importer->getResult();
 }

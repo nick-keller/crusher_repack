@@ -13,6 +13,12 @@ int LayerStack::isLayerVisible(int i)
     return m_layers[i].getVisible();
 }
 
+void LayerStack::setOnlyLayer(QImage image)
+{
+    QPainter painter(this->getImage());
+    painter.drawImage(0, 0, image);
+}
+
 QImage LayerStack::getFlattenedImage()
 {
     QImage image(m_layers[0].getImage()->size(), m_layers[0].getImage()->format());
