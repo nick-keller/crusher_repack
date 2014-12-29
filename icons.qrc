@@ -53,5 +53,7 @@
         <file>tools/pattern-fill.png</file>
         <file>tools/pattern-picker.png</file>
         <file>tools/pattern-selection.png</file>
+        <file>tools/color-picker.png</file>
+        <file>cursors/color-picker.png</file>
     </qresource>
 </RCC>

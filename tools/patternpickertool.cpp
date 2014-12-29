@@ -1,7 +1,8 @@
 #include "patternpickertool.h"
 
-PatternPickerTool::PatternPickerTool(ColorPicker *colorPicker) : Tool(colorPicker, Tool::PatternPicker, "Color Picker (I)", ":/tools/pattern-picker.png", "I")
+PatternPickerTool::PatternPickerTool(ColorPicker *colorPicker) : Tool(colorPicker, Tool::PatternPicker, "Color Picker (I)", ":/tools/color-picker.png", "I")
 {
+    this->setCursor(Picker);
 }
 
 void PatternPickerTool::mouseMoveEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection)

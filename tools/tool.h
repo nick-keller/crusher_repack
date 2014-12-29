@@ -14,7 +14,7 @@ class Tool : public QObject
     
 public:
     enum Name {Move, Marquee, EllipseSelection, WandTool, Rect, Ellipse, Line, BucketTool, Gradient, PatternPicker};
-    enum Cursor {Bucket, Cross, CrossPlus, CrossMinus, CrossAnd, Duplicate, Hand, MoveCursor, MoveCut, Selection, SelectLayer, Wand};
+    enum Cursor {Bucket, Picker, Cross, CrossPlus, CrossMinus, CrossAnd, Duplicate, Hand, MoveCursor, MoveCut, Selection, SelectLayer, Wand};
 
     Tool(ColorPicker* colorPicker, Name toolName, QString name, QString icon, QString shortcut = "");
 
