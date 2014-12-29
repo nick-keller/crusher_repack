@@ -9,6 +9,8 @@ class ColorPicker : public QWidget
 {
     Q_OBJECT
 public:
+    enum ColorType {Fill, Outline};
+
     explicit ColorPicker(QWidget *parent = 0);
 
     BrushSelector::FillType getOutlineType(){return m_outlineSelector.getType();}
@@ -20,6 +22,8 @@ public:
     QBrush getBrush(BrushSelector::FillType, QPixmap);
     QBrush getFillBrush();
     QBrush getOutlineBrush();
+
+    void setPattern(ColorType type, QPixmap pattern);
 
 protected:
     void paintEvent(QPaintEvent *event);

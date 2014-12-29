@@ -125,6 +125,7 @@ void MainWindow::createToolBars()
     m_tools.insert(Tool::Line, new LineTool(m_colorPicker));
     m_tools.insert(Tool::BucketTool, new BucketTool(m_colorPicker));
     m_tools.insert(Tool::Gradient, new GradientTool(m_colorPicker));
+    m_tools.insert(Tool::PatternPicker, new PatternPickerTool(m_colorPicker));
 
     // create toolbar
     QActionGroup *toolGroup = new QActionGroup(this);

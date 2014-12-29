@@ -28,7 +28,8 @@ SOURCES += \
     tools/gradienttool.cpp \
     dialogs/importdialog.cpp \
     widgets/imagecropper.cpp \
-    widgets/imageimporter.cpp
+    widgets/imageimporter.cpp \
+    tools/patternpickertool.cpp
 
 HEADERS += \
     src/layer.h \
@@ -59,7 +60,8 @@ HEADERS += \
     dialogs/importdialog.h \
     widgets/imagecropper.h \
     widgets/imageimporter.h \
-    src/const.h
+    src/const.h \
+    tools/patternpickertool.h
 
 RESOURCES += \
     icons.qrc

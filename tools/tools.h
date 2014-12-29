@@ -10,5 +10,6 @@
 #include "buckettool.h"
 #include "wandtool.h"
 #include "gradienttool.h"
+#include "patternpickertool.h"
 
 #endif // TOOLS_H

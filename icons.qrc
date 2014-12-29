@@ -50,5 +50,8 @@
         <file>icons/crop.png</file>
         <file>icons/fit.png</file>
         <file>icons/stretch.png</file>
+        <file>tools/pattern-fill.png</file>
+        <file>tools/pattern-picker.png</file>
+        <file>tools/pattern-selection.png</file>
     </qresource>
 </RCC>

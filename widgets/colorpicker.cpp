@@ -60,6 +60,36 @@ QBrush ColorPicker::getOutlineBrush()
     return this->getBrush(this->getOutlineType(), this->getOutlinePattern());
 }
 
+void ColorPicker::setPattern(ColorType type, QPixmap pattern)
+{
+    BrushSelector *selector;
+
+    if(type == Fill)
+        selector = &m_fillSelector;
+    else
+        selector = &m_outlineSelector;
+
+    if(pattern.size() == QSize(1, 1)){
+        QImage image = pattern.toImage();
+
+        if(QColor(image.pixel(0, 0)) == WHITE)
+            selector->setTypeWhite();
+        else if(QColor(image.pixel(0, 0)) == BLACK)
+            selector->setTypeBlack();
+        else
+            selector->setTypeNone();
+    }
+    else if(pattern.width() > 10 || pattern.height() > 10){
+        selector->setTypeNone();
+    }
+    else{
+        selector->setTypePattern();
+        selector->setPattern(pattern);
+    }
+
+    update();
+}
+
 void ColorPicker::paintEvent(QPaintEvent *event)
 {
     QPainter painter(&m_background);
