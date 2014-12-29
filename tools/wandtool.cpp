@@ -4,9 +4,24 @@ WandTool::WandTool(ColorPicker *colorPicker) : SelectionTool(colorPicker, Tool::
 {
 }
 
-void WandTool::mousePressEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection)
+void WandTool::mouseMoveEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection)
 {
-    QImage area = BucketTool::fillAt(QBrush(Qt::white), *layer, mouse.x(), mouse.y());
+    if(mouse.isButtonDown(Qt::LeftButton)){
+        hud->fill(Qt::transparent);
+
+        QPainter painter(hud);
+        painter.setPen(QPen(Qt::NoPen));
+        painter.setBrush(QBrush(AREA_BLUE));
+        painter.setOpacity(.5);
+
+        painter.drawRect(this->getRectPlusOne(mouse));
+    }
+}
+
+void WandTool::mouseReleaseEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection)
+{
+    QImage areas = BucketTool::getPatternArea(PatternPickerTool::findPattern(*layer, this->getRectPlusOne(mouse)), *layer);
+    QImage area = BucketTool::fillAt(QBrush(Qt::white), areas, mouse.clickedX(), mouse.clickedY());
 
     if(*useSelection == false)
         selection->fill(Qt::transparent);

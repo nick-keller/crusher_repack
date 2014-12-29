@@ -12,7 +12,7 @@ void PatternPickerTool::mouseMoveEvent(MouseState mouse, QImage *layer, QImage *
 
         QPainter painter(hud);
         painter.setPen(QPen(Qt::NoPen));
-        painter.setBrush(QBrush(QColor(91, 191, 211)));
+        painter.setBrush(QBrush(AREA_BLUE));
         painter.setOpacity(.5);
 
         painter.drawRect(this->getRectPlusOne(mouse));
@@ -45,6 +45,11 @@ void PatternPickerTool::mouseReleaseEvent(MouseState mouse, QImage *layer, QImag
 
 QPixmap PatternPickerTool::findPattern(QImage image, QRect rect)
 {
+    rect.setBottom(std::min(rect.bottom(), image.height() -1));
+    rect.setRight(std::min(rect.right(), image.width() -1));
+    rect.setTop(std::max(rect.top(), 0));
+    rect.setLeft(std::max(rect.left(), 0));
+
     // map of colors in the given rect used to access data much faster than pixel(x,y)
     QColor map[rect.width()][rect.height()];
 

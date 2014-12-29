@@ -8,6 +8,8 @@
 #include "../widgets/colorpicker.h"
 #include "../widgets/magiclabel.h"
 
+#define AREA_BLUE QColor(91, 191, 211)
+
 class Tool : public QObject
 {
     Q_OBJECT

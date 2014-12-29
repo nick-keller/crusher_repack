@@ -5,11 +5,30 @@ BucketTool::BucketTool(ColorPicker *colorPicker) : Tool(colorPicker, Tool::Bucke
     this->setCursor(Bucket);
 }
 
-void BucketTool::mousePressEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection)
+void BucketTool::mouseReleaseEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection)
 {
-    QImage fill = fillAt(this->getFillBrush(), *layer, mouse.x(), mouse.y());
+    if(mouse.button() == Qt::LeftButton){
+        hud->fill(Qt::transparent);
 
-    this->drawInSelection(layer, &fill, selection, useSelection);
+        QImage area = getPatternArea(PatternPickerTool::findPattern(*layer, this->getRectPlusOne(mouse)), *layer);
+        QImage fill = fillAt(this->getFillBrush(), area, mouse.clickedX(), mouse.clickedY());
+
+        this->drawInSelection(layer, &fill, selection, useSelection);
+    }
+}
+
+void BucketTool::mouseMoveEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection)
+{
+    if(mouse.isButtonDown(Qt::LeftButton)){
+        hud->fill(Qt::transparent);
+
+        QPainter painter(hud);
+        painter.setPen(QPen(Qt::NoPen));
+        painter.setBrush(QBrush(AREA_BLUE));
+        painter.setOpacity(.5);
+
+        painter.drawRect(this->getRectPlusOne(mouse));
+    }
 }
 
 QImage BucketTool::fillAt(QBrush brush, QImage source, int x, int y)
@@ -25,6 +44,43 @@ QImage BucketTool::fillAt(QBrush brush, QImage source, int x, int y)
     fillAt(&source, &sourcePainter, &resultPainter, source.pixel(x, y), x, y);
 
     return result;
+}
+
+QImage BucketTool::getPatternArea(QPixmap pattern, QImage source)
+{
+    QImage image(source.size(), source.format());
+    image.fill(Qt::transparent);
+
+    QImage patternImage = pattern.toImage();
+    QColor patternMap[pattern.width()][pattern.height()];
+
+    for(int i(0); i < pattern.width(); ++i)
+        for(int j(0); j < pattern.height(); ++j)
+            patternMap[i][j] = QColor(patternImage.pixel(i, j));
+
+    QPainter painter(&image);
+    painter.setPen(QPen(Qt::white));
+
+    for(int i(0); i < source.width(); ++i)
+        for(int j(0); j < source.height(); ++j)
+            if(QColor(source.pixel(i, j)) == patternMap[i %pattern.width()][j %pattern.height()])
+                painter.drawPoint(i, j);
+
+    painter.end();
+
+    QImage element(pattern.width(), pattern.height(), source.format());
+    element.fill(Qt::white);
+
+    Canvas::modifySelection(&image, element, Qt::transparent);
+    Canvas::modifySelection(&image, element, Qt::white);
+
+    QImage final(image.size(), image.format());
+    final.fill(Qt::transparent);
+
+    painter.begin(&final);
+    painter.drawImage(0, 0, image);
+
+    return final;
 }
 
 void BucketTool::fillAt(QImage *source, QPainter *sourcePainter, QPainter *resultPainter, QRgb target, int x, int y)

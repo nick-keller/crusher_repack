@@ -44,10 +44,10 @@ bool Canvas::isPointSelected(int x, int y)
     return QColor(m_selection.pixel(x, y)) == Qt::white;
 }
 
-void Canvas::modifySelection(int radius, bool sharp, QColor expand)
+void Canvas::modifySelection(QImage *selection, int radius, bool sharp, QColor expand)
 {
     int size = radius *2 +1;
-    QImage element(size, size, m_selection.format());
+    QImage element(size, size, selection->format());
     element.fill(Qt::transparent);
 
     if(sharp)
@@ -58,27 +58,28 @@ void Canvas::modifySelection(int radius, bool sharp, QColor expand)
         Tool::drawPerfectEllipse(&painter, 0, 0, size -1, size -1, true);
     }
 
-    QImage newSelection(m_selection.width() +2, m_selection.height() +2, m_selection.format());
+    modifySelection(selection, element, expand);
+}
+
+void Canvas::modifySelection(QImage *selection, QImage element, QColor expand)
+{
+    QImage newSelection(selection->width() +2, selection->height() +2, selection->format());
     newSelection.fill(Qt::transparent);
     QPainter painter(&newSelection);
-    painter.drawImage(1, 1, m_selection);
+    painter.drawImage(1, 1, *selection);
     painter.end();
 
-    painter.begin(&m_selection);
-    if(expand != Qt::white){
+    painter.begin(selection);
+    if(expand != Qt::white)
         painter.setCompositionMode(QPainter::CompositionMode_DestinationOut);
-    }
-
-    QColor test;
 
     for(int i(0); i < newSelection.width(); ++i){
         for(int j(0); j < newSelection.height(); ++j){
             if(newSelection.pixel(i, j) == expand.rgba()){
-                painter.drawImage(i - radius -1, j - radius -1, element);
+                painter.drawImage(i - element.width() /2 -1 +(element.width() %2 == 0 && expand == Qt::white ? 1: 0), j - element.height() /2 -1 +(element.height() %2 == 0 && expand == Qt::white ? 1: 0), element);
             }
         }
     }
-
 }
 
 void Canvas::zoom(float level)
@@ -124,12 +125,12 @@ void Canvas::inverseSelection()
 
 void Canvas::expandSelection(int radius, bool sharp)
 {
-    this->modifySelection(radius, sharp, Qt::white);
+    this->modifySelection(&m_selection, radius, sharp, Qt::white);
 }
 
 void Canvas::contractSelection(int radius, bool sharp)
 {
-    this->modifySelection(radius, sharp, Qt::transparent);
+    this->modifySelection(&m_selection, radius, sharp, Qt::transparent);
 }
 
 QImage Canvas::cut()

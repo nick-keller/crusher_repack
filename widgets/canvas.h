@@ -35,6 +35,9 @@ public:
     void clear();
     void fillSelection(QBrush);
 
+    static void modifySelection(QImage *selection, int radius, bool sharp, QColor expand);
+    static void modifySelection(QImage *selection, QImage element, QColor expand);
+
 protected:
     void paintEvent(QPaintEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
@@ -45,7 +48,6 @@ protected:
 private:
     void initPaintDevice();
     bool isPointSelected(int x, int y);
-    void modifySelection(int radius, bool sharp, QColor expand);
 
 signals:
 
