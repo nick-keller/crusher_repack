@@ -6,6 +6,7 @@ LayerStack::LayerStack(QWidget *parent) :
     this->newLayer();
     this->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
     this->setCursor(Qt::PointingHandCursor);
+    this->getImage()->fill(WHITE);
 }
 
 int LayerStack::isLayerVisible(int i)

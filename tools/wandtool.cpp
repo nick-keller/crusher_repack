@@ -20,25 +20,29 @@ void WandTool::mouseMoveEvent(MouseState mouse, QImage *layer, QImage *hud, QIma
 
 void WandTool::mouseReleaseEvent(MouseState mouse, QImage *layer, QImage *hud, QImage *selection, bool *useSelection)
 {
-    QImage areas = BucketTool::getPatternArea(PatternPickerTool::findPattern(*layer, this->getRectPlusOne(mouse)), *layer);
-    QImage area = BucketTool::fillAt(QBrush(Qt::white), areas, mouse.clickedX(), mouse.clickedY());
+    if(mouse.button() == Qt::LeftButton){
+        hud->fill(Qt::transparent);
 
-    if(*useSelection == false)
-        selection->fill(Qt::transparent);
+        QImage areas = BucketTool::getPatternArea(PatternPickerTool::findPattern(*layer, this->getRectPlusOne(mouse)), *layer);
+        QImage area = BucketTool::fillAt(QBrush(Qt::white), areas, mouse.clickedX(), mouse.clickedY());
 
-    QPainter painter(selection);
+        if(*useSelection == false)
+            selection->fill(Qt::transparent);
 
-    if(m_selectionMode == "only")
-        painter.setCompositionMode(QPainter::CompositionMode_Source);
-    if(m_selectionMode == "not")
-        painter.setCompositionMode(QPainter::CompositionMode_DestinationOut);
-    if(m_selectionMode == "and")
-        painter.setCompositionMode(QPainter::CompositionMode_DestinationIn);
+        QPainter painter(selection);
 
-    painter.drawImage(0, 0, area);
+        if(m_selectionMode == "only")
+            painter.setCompositionMode(QPainter::CompositionMode_Source);
+        if(m_selectionMode == "not")
+            painter.setCompositionMode(QPainter::CompositionMode_DestinationOut);
+        if(m_selectionMode == "and")
+            painter.setCompositionMode(QPainter::CompositionMode_DestinationIn);
 
-    *useSelection = true;
-    emit selectionChanged(true);
+        painter.drawImage(0, 0, area);
+
+        *useSelection = true;
+        emit selectionChanged(true);
+    }
 }
 
 void WandTool::setCorrectCursor()
