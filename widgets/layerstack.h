@@ -48,6 +48,7 @@ signals:
 public slots:
     void newLayer();
     void removeLayer();
+    void duplicateLayer();
 
 private:
     QList<Layer> m_layers;

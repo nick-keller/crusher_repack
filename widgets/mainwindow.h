@@ -44,9 +44,13 @@ public slots:
     void paste();
     void clear();
     void fill();
+    void rotate180();
+    void rotate90();
+    void rotateMinus90();
 
     // Layer
     void createNewLayer();
+    void duplicateLayer();
     void removeLayer();
 
     // Select

@@ -82,6 +82,30 @@ void Canvas::modifySelection(QImage *selection, QImage element, QColor expand)
     }
 }
 
+QRect Canvas::getRealRect(QImage *image)
+{
+    QRect rect;
+    int minX = SCREEN_WIDTH, minY = SCREEN_HEIGHT, maxX = 0, maxY = 0;
+
+    for(int i(0); i < image->width(); ++i){
+        for(int j(0); j < image->height(); ++j){
+            if(qAlpha(image->pixel(i, j)) != 0){
+                minX = std::min(minX, i);
+                maxX = std::max(maxX, i);
+                minY = std::min(minY, j);
+                maxY = std::max(maxY, j);
+            }
+        }
+    }
+
+    rect.setTop(minY);
+    rect.setBottom(maxY);
+    rect.setLeft(minX);
+    rect.setRight(maxX);
+
+    return rect;
+}
+
 void Canvas::zoom(float level)
 {
     if(level < 1 || level > 100) return;
@@ -201,6 +225,39 @@ void Canvas::fillSelection(QBrush brush)
 
     update();
     m_layers->update();
+}
+
+void Canvas::rotateLayer(int angle)
+{
+    QImage *layer = m_layers->getImage();
+    QImage temp = *layer;
+    layer->fill(Qt::transparent);
+
+    QRect originalRect = Canvas::getRealRect(&temp);
+
+    QPainter painter(layer);
+    painter.translate(layer->rect().center());
+    painter.rotate(angle);
+    painter.translate(-originalRect.center());
+    painter.drawImage(0, 0, temp);
+
+    QRect newRect = Canvas::getRealRect(layer);
+    QPoint offset = newRect.topLeft();
+    newRect.moveCenter(originalRect.center());
+    newRect.moveLeft(std::max(0, newRect.left()));
+    newRect.moveRight(std::min(SCREEN_WIDTH -1, newRect.right()));
+    newRect.moveTop(std::max(0, newRect.top()));
+    newRect.moveBottom(std::min(SCREEN_HEIGHT -1, newRect.bottom()));
+
+    offset = newRect.topLeft() - offset;
+
+    temp = *layer;
+    layer->fill(Qt::transparent);
+
+    painter.resetTransform();
+    painter.drawImage(offset, temp);
+
+    update();
 }
 
 void Canvas::paintEvent(QPaintEvent *event)

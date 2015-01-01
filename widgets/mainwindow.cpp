@@ -67,6 +67,11 @@ void MainWindow::createMenus()
     menuEdit->addSeparator();
     m_actions.insert("fill", menuEdit->addAction("Fill...", this, SLOT(fill()), QString("Shift+F5")));
 
+    m_menus.insert("transform", menuEdit->addMenu("Transform"));
+    m_actions.insert("180", m_menus["transform"]->addAction("Rotate 180°", this, SLOT(rotate180())));
+    m_actions.insert("90", m_menus["transform"]->addAction("Rotate 90° clockwise", this, SLOT(rotate90())));
+    m_actions.insert("-90", m_menus["transform"]->addAction("Rotate 90° counter clockwise", this, SLOT(rotateMinus90())));
+
     m_actions["paste"]->setDisabled(true);
 
     m_actionsSelectionActivated
@@ -79,10 +84,12 @@ void MainWindow::createMenus()
     QMenu *menuLayer = menuBar->addMenu("&Layer");
 
     m_actions.insert("new layer", menuLayer->addAction(QIcon(":/icons/newlayer.png"), "New layer...", this, SLOT(createNewLayer()),  QString("Shift+Ctrl+N")));
+    m_actions.insert("duplicate layer", menuLayer->addAction("Duplicate layer...", this, SLOT(duplicateLayer())));
     m_actions.insert("remove layer", menuLayer->addAction(QIcon(":/icons/trash.png"), "Remove layer", this, SLOT(removeLayer())));
 
     m_actionsDocOpened
             << m_actions["new layer"]
+            << m_actions["duplicate layer"]
             << m_actions["remove layer"];
 
     // Select ----------------------------------------------------------------------------
@@ -360,10 +367,30 @@ void MainWindow::fill()
     this->getWorkspace()->getCanvas()->fillSelection(dialog->getBrush());
 }
 
+void MainWindow::rotate180()
+{
+    this->getWorkspace()->getCanvas()->rotateLayer(180);
+}
+
+void MainWindow::rotate90()
+{
+    this->getWorkspace()->getCanvas()->rotateLayer(90);
+}
+
+void MainWindow::rotateMinus90()
+{
+    this->getWorkspace()->getCanvas()->rotateLayer(-90);
+}
+
 void MainWindow::createNewLayer()
 {
     LayerStack *layerStack = (LayerStack*) m_layersArea->widget();
     layerStack->newLayer();
+}
+
+void MainWindow::duplicateLayer()
+{
+    this->getWorkspace()->getCanvas()->getLayerStack()->duplicateLayer();
 }
 
 void MainWindow::removeLayer()

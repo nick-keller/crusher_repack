@@ -34,9 +34,12 @@ public:
     void paste(QImage);
     void clear();
     void fillSelection(QBrush);
+    void rotateLayer(int angle);
 
     static void modifySelection(QImage *selection, int radius, bool sharp, QColor expand);
     static void modifySelection(QImage *selection, QImage element, QColor expand);
+
+    static QRect getRealRect(QImage*);
 
 protected:
     void paintEvent(QPaintEvent *event);

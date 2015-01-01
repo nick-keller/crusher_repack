@@ -180,3 +180,14 @@ void LayerStack::removeLayer()
         emit modified();
     }
 }
+
+void LayerStack::duplicateLayer()
+{
+    int toCopy = m_selectedLayer;
+    this->newLayer();
+
+    QPainter painter(this->getImage());
+    painter.drawImage(0, 0, *m_layers[toCopy].getImage());
+
+    update();
+}
