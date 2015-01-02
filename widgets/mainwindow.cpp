@@ -129,6 +129,7 @@ void MainWindow::createToolBars()
     m_tools.insert(Tool::Marquee, new MarqueeTool(m_colorPicker));
     m_tools.insert(Tool::EllipseSelection, new EllipseSelectionTool(m_colorPicker));
     m_tools.insert(Tool::WandTool, new WandTool(m_colorPicker));
+    m_tools.insert(Tool::Brush, new BrushTool(m_colorPicker));
     m_tools.insert(Tool::Rect, new RectTool(m_colorPicker));
     m_tools.insert(Tool::Ellipse, new EllipseTool(m_colorPicker));
     m_tools.insert(Tool::Line, new LineTool(m_colorPicker));

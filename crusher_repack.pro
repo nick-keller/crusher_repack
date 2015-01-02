@@ -29,7 +29,8 @@ SOURCES += \
     dialogs/importdialog.cpp \
     widgets/imagecropper.cpp \
     widgets/imageimporter.cpp \
-    tools/patternpickertool.cpp
+    tools/patternpickertool.cpp \
+    tools/brushtool.cpp
 
 HEADERS += \
     src/layer.h \
@@ -61,7 +62,8 @@ HEADERS += \
     widgets/imagecropper.h \
     widgets/imageimporter.h \
     src/const.h \
-    tools/patternpickertool.h
+    tools/patternpickertool.h \
+    tools/brushtool.h
 
 RESOURCES += \
     icons.qrc \

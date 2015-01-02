@@ -13,6 +13,7 @@ public:
     Qt::MouseButton button(){return m_button;}
 
     QPoint getPos(){return m_pos;}
+    QPoint getLastPos(){return m_lastPos;}
     QPoint getClickedAt(){return m_clickedAt;}
     QPoint delta();
     QRect getClickedRect();
