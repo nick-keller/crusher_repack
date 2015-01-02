@@ -25,6 +25,7 @@ private:
     void createToolBars();
     void createDocks();
     void createDialogs();
+    void loadStyleSheet();
     Workspace *getWorkspace();
 
 signals:

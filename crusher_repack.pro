@@ -64,7 +64,8 @@ HEADERS += \
     tools/patternpickertool.h
 
 RESOURCES += \
-    icons.qrc
+    icons.qrc \
+    stylesheet.qrc
 
 FORMS += \
     dialogs/brushselector.ui \

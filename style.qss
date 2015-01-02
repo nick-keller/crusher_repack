@@ -1,0 +1,18 @@
+QPushButton {
+    border: 1px solid #858585;
+    border-radius: 3px;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #e9e9e9, stop: 1 #ffffff);
+    color: black;
+    min-height: 18px;
+    width: 100%
+}
+
+ QPushButton:default {
+    border-width: 2px;
+ }
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #a0a0a0, stop: 0.94 #a9a9a9, stop: 1 #999999);
+ }

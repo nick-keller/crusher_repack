@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     this->createToolBars();
     this->createDocks();
     this->createDialogs();
+    this->loadStyleSheet();
+
     this->selectionChanged(false);
     this->documentClosed();
     this->setWindowIcon(QIcon(":/icons/logo.png"));
@@ -202,6 +204,14 @@ void MainWindow::createDialogs()
     m_dialogs.insert("contract", new ModifySelection("Contract", this));
     m_dialogs.insert("smooth selection", new SmoothSelection(this));
     m_dialogs.insert("fill", new FillSelector(m_colorPicker, this));
+}
+
+void MainWindow::loadStyleSheet()
+{
+    QFile file(":/qss/style.qss");
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QLatin1String(file.readAll());
+    setStyleSheet(styleSheet);
 }
 
 Workspace *MainWindow::getWorkspace()
