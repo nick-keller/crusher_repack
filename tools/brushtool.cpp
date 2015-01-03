@@ -15,27 +15,26 @@ void BrushTool::mouseMoveEvent(MouseState mouse, QImage *layer, QImage *hud, QIm
 {
     if(mouse.isButtonDown(Qt::LeftButton)){
         hud->fill(Qt::transparent);
+
+        QImage temp(layer->size(), layer->format());
+        temp.fill(Qt::transparent);
+
+        QPainter *painter = this->getPainter(&temp);
+
+        if(m_brushSize->value() == 1)
+            Tool::drawPerfectLine(painter, mouse.getPos(), m_last);
+        else
+            painter->drawLine(mouse.getPos(), m_last);
+
+        delete painter;
+
         if(QVector2D(mouse.getPos() - m_last).lengthSquared() >= (m_brushSize->value() + 2) * m_brushSize->value()){
-            QPainter *painter = this->getPainter(layer);
-
-            if(m_brushSize->value() == 1)
-                Tool::drawPerfectLine(painter, mouse.getPos(), m_last);
-            else
-                painter->drawLine(mouse.getPos(), m_last);
-
             m_last = mouse.getPos();
 
-            delete painter;
+            this->drawInSelection(layer, &temp, selection, useSelection);
         }
         else{
-            QPainter *painter = this->getPainter(hud);
-
-            if(m_brushSize->value() == 1)
-                Tool::drawPerfectLine(painter, mouse.getPos(), m_last);
-            else
-                painter->drawLine(mouse.getPos(), m_last);
-
-            delete painter;
+            this->drawInSelection(hud, &temp, selection, useSelection);
         }
     }
 }
@@ -45,7 +44,10 @@ void BrushTool::mouseReleaseEvent(MouseState mouse, QImage *layer, QImage *hud, 
     if(mouse.button() == Qt::LeftButton){
         hud->fill(Qt::transparent);
 
-        QPainter *painter = this->getPainter(layer);
+        QImage temp(layer->size(), layer->format());
+        temp.fill(Qt::transparent);
+
+        QPainter *painter = this->getPainter(&temp);
 
         if(m_brushSize->value() == 1)
             Tool::drawPerfectLine(painter, mouse.getPos(), m_last);
@@ -53,6 +55,8 @@ void BrushTool::mouseReleaseEvent(MouseState mouse, QImage *layer, QImage *hud, 
             painter->drawLine(mouse.getPos(), m_last);
 
         delete painter;
+
+        this->drawInSelection(layer, &temp, selection, useSelection);
     }
 }
 
