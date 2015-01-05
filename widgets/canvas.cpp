@@ -377,6 +377,11 @@ void Canvas::mouseReleaseEvent(QMouseEvent *event)
     update();
 }
 
+void Canvas::leaveEvent(QEvent *event)
+{
+    m_layers->getHud()->fill(Qt::transparent);
+}
+
 void Canvas::timerEvent(QTimerEvent *event)
 {
     QPixmap oldTexture = m_selectionPen.brush().texture();

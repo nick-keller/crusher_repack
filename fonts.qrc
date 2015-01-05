@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>fonts/munro_small.ttf</file>
+        <file>fonts/sanstaina.ttf</file>
+        <file>fonts/PressStart2P.ttf</file>
+        <file>fonts/Fipps-Regular.otf</file>
+        <file>fonts/thin_pixel-7.ttf</file>
+        <file>fonts/Minecraftia-Regular.ttf</file>
+        <file>fonts/slkscr.ttf</file>
+        <file>fonts/pixelmix.ttf</file>
+        <file>fonts/pixelmix_bold.ttf</file>
+        <file>fonts/visitor.ttf</file>
+        <file>fonts/wendy.ttf</file>
+    </qresource>
+</RCC>

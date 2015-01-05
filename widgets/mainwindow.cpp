@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->createToolBars();
     this->createDocks();
     this->createDialogs();
-    this->loadStyleSheet();
+    //this->loadStyleSheet();
 
     this->selectionChanged(false);
     this->documentClosed();
@@ -135,6 +135,7 @@ void MainWindow::createToolBars()
     m_tools.insert(Tool::Line, new LineTool(m_colorPicker));
     m_tools.insert(Tool::BucketTool, new BucketTool(m_colorPicker));
     m_tools.insert(Tool::Gradient, new GradientTool(m_colorPicker));
+    m_tools.insert(Tool::Text, new TextTool(m_colorPicker));
     m_tools.insert(Tool::PatternPicker, new PatternPickerTool(m_colorPicker));
 
     // create toolbar

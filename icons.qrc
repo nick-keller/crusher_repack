@@ -56,5 +56,6 @@
         <file>tools/color-picker.png</file>
         <file>cursors/color-picker.png</file>
         <file>tools/brush.png</file>
+        <file>tools/text.png</file>
     </qresource>
 </RCC>

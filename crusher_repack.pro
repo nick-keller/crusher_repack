@@ -30,7 +30,8 @@ SOURCES += \
     widgets/imagecropper.cpp \
     widgets/imageimporter.cpp \
     tools/patternpickertool.cpp \
-    tools/brushtool.cpp
+    tools/brushtool.cpp \
+    tools/texttool.cpp
 
 HEADERS += \
     src/layer.h \
@@ -63,11 +64,13 @@ HEADERS += \
     widgets/imageimporter.h \
     src/const.h \
     tools/patternpickertool.h \
-    tools/brushtool.h
+    tools/brushtool.h \
+    tools/texttool.h
 
 RESOURCES += \
     icons.qrc \
-    stylesheet.qrc
+    stylesheet.qrc \
+    fonts.qrc
 
 FORMS += \
     dialogs/brushselector.ui \

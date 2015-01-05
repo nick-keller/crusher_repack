@@ -12,5 +12,6 @@
 #include "gradienttool.h"
 #include "patternpickertool.h"
 #include "brushtool.h"
+#include "texttool.h"
 
 #endif // TOOLS_H
