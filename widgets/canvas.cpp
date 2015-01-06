@@ -380,6 +380,7 @@ void Canvas::mouseReleaseEvent(QMouseEvent *event)
 void Canvas::leaveEvent(QEvent *event)
 {
     m_layers->getHud()->fill(Qt::transparent);
+    update();
 }
 
 void Canvas::timerEvent(QTimerEvent *event)

@@ -240,6 +240,8 @@ void MainWindow::createNewDocument()
 
     for(int i(0); i < m_actionsSelectionNotActivated.size(); ++i)
         m_actionsSelectionNotActivated[i]->setEnabled(true);
+
+    m_menus["transform"]->setEnabled(true);
 }
 
 void MainWindow::openDocument()
@@ -307,6 +309,7 @@ void MainWindow::documentClosed()
             m_actionsSelectionNotActivated[i]->setEnabled(false);
 
         m_menus["modify"]->setDisabled(true);
+        m_menus["transform"]->setDisabled(true);
     }
 }
 
