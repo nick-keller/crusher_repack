@@ -31,7 +31,14 @@ SOURCES += \
     widgets/imageimporter.cpp \
     tools/patternpickertool.cpp \
     tools/brushtool.cpp \
-    tools/texttool.cpp
+    tools/texttool.cpp \
+    export/basicexport.cpp \
+    dialogs/basicexportdialog.cpp \
+    export/drawable.cpp \
+    export/dot.cpp \
+    export/line.cpp \
+    export/rect.cpp \
+    dialogs/codedisplaydialog.cpp
 
 HEADERS += \
     src/layer.h \
@@ -65,7 +72,14 @@ HEADERS += \
     src/const.h \
     tools/patternpickertool.h \
     tools/brushtool.h \
-    tools/texttool.h
+    tools/texttool.h \
+    export/basicexport.h \
+    dialogs/basicexportdialog.h \
+    export/drawable.h \
+    export/dot.h \
+    export/line.h \
+    export/rect.h \
+    dialogs/codedisplaydialog.h
 
 RESOURCES += \
     icons.qrc \
@@ -77,6 +91,8 @@ FORMS += \
     dialogs/modifyselection.ui \
     dialogs/smoothselection.ui \
     dialogs/fillselector.ui \
-    dialogs/importdialog.ui
+    dialogs/importdialog.ui \
+    dialogs/basicexportdialog.ui \
+    dialogs/codedisplaydialog.ui
 
 QMAKE_CFLAGS = -Wno-unused-parameter

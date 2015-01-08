@@ -1,0 +1,1174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BasicExportDialog</class>
+ <widget class="QDialog" name="BasicExportDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>355</width>
+    <height>469</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Export to Basic</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QGroupBox" name="groupBox_5">
+        <property name="title">
+         <string>General</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item>
+          <widget class="QWidget" name="widget_7" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QCheckBox" name="posVar">
+              <property name="text">
+               <string>Position var:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="posVarX">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>40</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="currentIndex">
+               <number>23</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>A</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>B</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>C</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>D</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>E</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>F</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>G</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>H</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>I</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>J</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>K</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>L</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>M</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>N</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>O</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>P</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Q</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>R</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>S</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>T</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>U</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>V</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>W</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>X</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Y</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Z</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="posVarY">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>40</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="currentIndex">
+               <number>24</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>A</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>B</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>C</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>D</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>E</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>F</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>G</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>H</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>I</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>J</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>K</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>L</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>M</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>N</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>O</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>P</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Q</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>R</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>S</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>T</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>U</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>V</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>W</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>X</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Y</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Z</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" name="widget_8" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QCheckBox" name="globalDrawStat">
+              <property name="text">
+               <string>DrawStat</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+              <property name="tristate">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="globalListX">
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>List 1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 6</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Custom</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="globalListY">
+              <property name="currentIndex">
+               <number>1</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>List 1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 6</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Custom</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>Dots</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QRadioButton" name="dotPlot">
+           <property name="text">
+            <string>PlotOn</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="dotPxl">
+           <property name="text">
+            <string>PxlOn</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="dotFline">
+           <property name="text">
+            <string>F-Line</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" name="widget_2" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QRadioButton" name="dotDrawStat">
+              <property name="text">
+               <string>DrawStat</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="dotListX">
+              <item>
+               <property name="text">
+                <string>List 1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 6</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="dotListY">
+              <property name="currentIndex">
+               <number>1</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>List 1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 6</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="title">
+         <string>Lines</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QRadioButton" name="lineFline">
+           <property name="text">
+            <string>F-Line</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" name="widget_3" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QRadioButton" name="lineDrawStat">
+              <property name="text">
+               <string>DrawStat</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="lineListX">
+              <item>
+               <property name="text">
+                <string>List 1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 6</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="lineListY">
+              <property name="currentIndex">
+               <number>1</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>List 1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 6</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="paths">
+        <property name="title">
+         <string>Paths</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QWidget" name="widget_6" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Lists:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="pathListX">
+              <item>
+               <property name="text">
+                <string>List 1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 6</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="pathListY">
+              <property name="currentIndex">
+               <number>1</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>List 1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 6</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="rect">
+        <property name="title">
+         <string>Rectangles</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QWidget" name="widget_4" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QRadioButton" name="rectForLoop">
+              <property name="text">
+               <string>For loop</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Var:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="rectLoopVar">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>40</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <item>
+               <property name="text">
+                <string>A</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>B</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>C</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>D</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>E</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>F</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>G</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>H</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>I</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>J</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>K</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>L</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>M</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>N</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>O</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>P</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Q</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>R</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>S</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>T</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>U</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>V</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>W</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>X</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Y</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Z</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" name="widget_5" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QRadioButton" name="rectDrawStat">
+              <property name="text">
+               <string>DrawStat</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="rectListX">
+              <item>
+               <property name="text">
+                <string>List 1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 6</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="rectListY">
+              <property name="currentIndex">
+               <number>1</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>List 1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>List 6</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>BasicExportDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>271</x>
+     <y>243</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>136</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>BasicExportDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
