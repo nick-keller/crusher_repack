@@ -1,0 +1,77 @@
+QPushButton:!flat {
+    border-image: url(:/qss/btn_border.png) 5px 5px 5px 5px stretch;
+    border-width: 5px;
+    color: black;
+    width: 100%
+}
+
+QPushButton:flat:hover {
+    border-image: url(:/qss/btn_border.png) 5px 5px 5px 5px stretch;
+    border-width: 5px;
+}
+
+QPushButton:default {
+    border-image: url(:/qss/btn_border_default.png) 5px 5px 5px 5px stretch;
+    border-width: 5px;
+}
+
+QPushButton:!flat:focus {
+    border-image: url(:/qss/btn_border_focus.png) 5px 5px 5px 5px stretch;
+    border-width: 5px;
+}
+
+QPushButton:!flat:pressed, QPushButton:flat:pressed {
+    border-image: url(:/qss/btn_border_pressed.png) 5px 5px 5px 5px stretch;
+    border-width: 5px;
+}
+
+QCheckBox::indicator {
+    width: 16px;
+    height: 15px;
+}
+
+QCheckBox::indicator:unchecked {
+    image: url(:/qss/checkbox_empty.png);
+}
+
+QCheckBox::indicator:unchecked:pressed {
+    image: url(:/qss/checkbox_empty_pressed.png);
+}
+
+QCheckBox::indicator:checked {
+    image: url(:/qss/checkbox_checked.png);
+}
+
+QCheckBox::indicator:checked:pressed {
+    image: url(:/qss/checkbox_checked_pressed.png);
+}
+
+QComboBox{
+    border-image: url(:/qss/btn_border.png) 5px 5px 5px 5px stretch;
+    border-width: 5px;
+    color: black;
+    height: 14px;
+}
+
+QComboBox:on {
+    border-image: url(:/qss/btn_border_pressed.png) 5px 5px 5px 5px stretch;
+}
+
+QComboBox::down-arrow {
+    image: url(:/qss/combobox_indicator.png);
+}
+
+QComboBox::drop-down {
+    border: none;
+    background: none;
+}
+
+QLineEdit {
+    border-image: url(:/qss/input_border.png) 4px 3px 4px 3px stretch;
+    border-width: 4px 3px 4px 3px;
+}
+
+QLineEdit:focus {
+    border-image: url(:/qss/input_border_focus.png) 4px 3px 4px 3px stretch;
+    border-width: 4px 3px 4px 3px;
+}

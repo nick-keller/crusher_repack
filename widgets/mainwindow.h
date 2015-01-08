@@ -9,6 +9,7 @@
 #include "../dialogs/smoothselection.h"
 #include "../dialogs/fillselector.h"
 #include "../dialogs/importdialog.h"
+#include "../export/basicexport.h"
 
 class MainWindow : public QMainWindow
 {
@@ -38,6 +39,7 @@ public slots:
     void closeAllDocuments();
     void saveDocument();
     void saveDocumentAs();
+    void exportBasic();
 
     // Edit
     void cut();

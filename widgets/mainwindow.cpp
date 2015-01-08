@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->createToolBars();
     this->createDocks();
     this->createDialogs();
-    //this->loadStyleSheet();
+    this->loadStyleSheet();
 
     this->selectionChanged(false);
     this->documentClosed();
@@ -51,6 +51,8 @@ void MainWindow::createMenus()
     m_actions.insert("save", menuFile->addAction("Save", this, SLOT(saveDocument()), QString("Ctrl+S")));
     m_actions.insert("save as", menuFile->addAction("Save as...", this, SLOT(saveDocumentAs()), QString("Ctrl+Shift+S")));
     menuFile->addSeparator();
+    m_menus.insert("export", menuFile->addMenu("Export"));
+    m_actions.insert("export basic", m_menus["export"]->addAction("Basic", this, SLOT(exportBasic()), QString("F5")));
     m_actions.insert("exit", menuFile->addAction("Exit", this, SLOT(close()), QString("Ctrl+Q")));
 
     m_actionsDocOpened
@@ -210,7 +212,7 @@ void MainWindow::createDialogs()
 
 void MainWindow::loadStyleSheet()
 {
-    QFile file(":/qss/style.qss");
+    QFile file(":/qss/style.css");
     file.open(QFile::ReadOnly);
     QString styleSheet = QLatin1String(file.readAll());
     setStyleSheet(styleSheet);
@@ -242,6 +244,7 @@ void MainWindow::createNewDocument()
         m_actionsSelectionNotActivated[i]->setEnabled(true);
 
     m_menus["transform"]->setEnabled(true);
+    m_menus["export"]->setEnabled(true);
 }
 
 void MainWindow::openDocument()
@@ -310,6 +313,7 @@ void MainWindow::documentClosed()
 
         m_menus["modify"]->setDisabled(true);
         m_menus["transform"]->setDisabled(true);
+        m_menus["export"]->setDisabled(true);
     }
 }
 
@@ -346,6 +350,12 @@ void MainWindow::saveDocument()
 void MainWindow::saveDocumentAs()
 {
     this->getWorkspace()->saveAs();
+}
+
+void MainWindow::exportBasic()
+{
+    BasicExport exporter(this->getWorkspace()->getLayerStack()->getFlattenedImage());
+    exporter.generate();
 }
 
 void MainWindow::cut()

@@ -1,5 +1,16 @@
 <RCC>
-    <qresource prefix="/qss">
-        <file>style.qss</file>
+    <qresource prefix="/">
+        <file>qss/btn_border.png</file>
+        <file>qss/style.css</file>
+        <file>qss/btn_border_default.png</file>
+        <file>qss/btn_border_focus.png</file>
+        <file>qss/btn_border_pressed.png</file>
+        <file>qss/checkbox_checked.png</file>
+        <file>qss/checkbox_checked_pressed.png</file>
+        <file>qss/checkbox_empty.png</file>
+        <file>qss/checkbox_empty_pressed.png</file>
+        <file>qss/combobox_indicator.png</file>
+        <file>qss/input_border.png</file>
+        <file>qss/input_border_focus.png</file>
     </qresource>
 </RCC>
