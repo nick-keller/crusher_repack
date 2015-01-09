@@ -12,8 +12,8 @@ void BasicExport::generate()
     exportDialog->exec();
     delete exportDialog;
 
-//    this->findLines();
     this->findRects();
+    this->findLines();
 
     QString code;
 
@@ -197,9 +197,44 @@ void BasicExport::findRects()
                     }
 
                 if(keep)
-                    m_drawables.append(new Rect(i - leftMap[i][j], j - heightMap[i][j] +1, leftMap[i][j] + 1 + rightMap[i][j], heightMap[i][j]));
+                    rects.append(Rect(i - leftMap[i][j], j - heightMap[i][j] +1, leftMap[i][j] + 1 + rightMap[i][j], heightMap[i][j]));
             }
         }
+
+    // free
+    heightMap.clear();
+    leftMap.clear();
+    rightMap.clear();
+    surfaceMap.clear();
+    left.clear();
+    right.clear();
+
+    // filter rects
+    IntMap pxlRedundancy = getIntMap();
+    for(int i(0); i < rects.size(); ++i){
+        Rect r = rects[i];
+
+        for(int i(r.x()); i < r.x() + r.w(); ++i)
+            for(int j(r.y()); j < r.y() + r.h(); ++j)
+                pxlRedundancy[i][j] += 1;
+    }
+
+    for(int i(0); i < m_width; ++i)
+        for(int j(0); j < m_height; ++j)
+            if(pxlRedundancy[i][j] == 1)
+                for(int r(0); r < rects.size(); ++r)
+                    if(rects[r].contains(i, j)){
+                        m_drawables.append(new Rect(rects[r].x(), rects[r].y(), rects[r].w(), rects[r].h()));
+
+                        // clear rect from image
+                        for(int i(rects[r].x()); i < rects[r].x() + rects[r].w(); ++i)
+                            for(int j(rects[r].y()); j < rects[r].y() + rects[r].h(); ++j)
+                                m_image[i][j] = false;
+
+                        rects.removeAt(r);
+                        break;
+                    }
+
 }
 
 bool BasicExport::isPxlOn(int x, int y)
