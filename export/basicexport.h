@@ -7,6 +7,9 @@
 #include "../dialogs/codedisplaydialog.h"
 #include "drawable.h"
 #include "line.h"
+#include "rect.h"
+
+typedef QVector< QVector<int> > IntMap;
 
 class BasicExport
 {
@@ -23,6 +26,8 @@ private:
     bool isPxlOn(int x, int y);
     bool isHLineOn(int x, int y, int length);
     bool isVLineOn(int x, int y, int length);
+
+    IntMap getIntMap();
 
 private:
     int m_width;

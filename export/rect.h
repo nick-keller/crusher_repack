@@ -6,8 +6,9 @@
 class Rect : public Drawable
 {
 public:
-    Rect();
+    Rect(int x, int y, int width, int height);
 
+    QString getCode();
     int weight() const;
 
 private:

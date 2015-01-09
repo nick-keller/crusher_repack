@@ -7,10 +7,7 @@ Line::Line(int x1, int y1, int x2, int y2) :
 
 QString Line::getCode()
 {
-    QString code("F-Line ");
-    code += QString::number(m_p1.x()) + "," + QString::number(m_p1.y()) + "," + QString::number(m_p2.x()) + "," + QString::number(m_p2.y()) + "\n";
-
-    return code;
+    return "F-Line " + QString::number(m_p1.x()) + "," + QString::number(m_p1.y()) + "," + QString::number(m_p2.x()) + "," + QString::number(m_p2.y()) + "\n";
 }
 
 int Line::weight() const

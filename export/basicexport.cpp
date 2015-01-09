@@ -12,7 +12,8 @@ void BasicExport::generate()
     exportDialog->exec();
     delete exportDialog;
 
-    this->findLines();
+//    this->findLines();
+    this->findRects();
 
     QString code;
 
@@ -137,7 +138,68 @@ void BasicExport::findLines()
 
 void BasicExport::findRects()
 {
+    IntMap heightMap = getIntMap();
+    IntMap leftMap = getIntMap();
+    IntMap rightMap = getIntMap();
+    IntMap surfaceMap = getIntMap();
+    QStack<int> left, right;
+    QList<Rect> rects;
 
+    // height map
+    for(int j(0); j < m_height; ++j)
+        for(int i(0); i < m_width; ++i)
+            heightMap[i][j] = isPxlOn(i, j) ? !j ? 1 : heightMap[i][j -1] +1 : 0;
+
+    // left and right map
+    for(int j(0); j < m_height; ++j){
+        left.clear();
+        for(int i(0); i < m_width; ++i){
+            while(!left.empty() && heightMap[i][j] <= heightMap[left.top()][j])
+                left.pop();
+
+            if(left.empty())
+                leftMap[i][j] = i;
+            else
+                leftMap[i][j] = i - left.top() -1;
+
+            left.push(i);
+        }
+
+        right.clear();
+        for(int i(m_width -1); i >= 0; --i){
+            while(!right.empty() && heightMap[i][j] <= heightMap[right.top()][j])
+                right.pop();
+
+            if(right.empty())
+                rightMap[i][j] = m_width -1 -i;
+            else
+                rightMap[i][j] = right.top() -i -1;
+
+            right.push(i);
+        }
+    }
+
+    // surface map
+    for(int j(0); j < m_height; ++j)
+        for(int i(0); i < m_width; ++i)
+            surfaceMap[i][j] = heightMap[i][j] * (leftMap[i][j] + 1 + rightMap[i][j]);
+
+    // get rects
+    for(int j(0); j < m_height; ++j)
+        for(int i(0); i < m_width; ++i){
+            if(surfaceMap[i][j] && (j == m_height -1 || surfaceMap[i][j] > surfaceMap[i][j+1]) && heightMap[i][j] > 1 && leftMap[i][j] + rightMap[i][j]){
+                bool keep = true;
+
+                for(int right(1); right <= rightMap[i][j]; ++right)
+                    if(heightMap[i][j] == heightMap[i+right][j]){
+                        keep = false;
+                        break;
+                    }
+
+                if(keep)
+                    m_drawables.append(new Rect(i - leftMap[i][j], j - heightMap[i][j] +1, leftMap[i][j] + 1 + rightMap[i][j], heightMap[i][j]));
+            }
+        }
 }
 
 bool BasicExport::isPxlOn(int x, int y)
@@ -164,4 +226,10 @@ bool BasicExport::isVLineOn(int x, int y, int length)
             return false;
 
     return true;
+}
+
+IntMap BasicExport::getIntMap()
+{
+    QVector<int> blankColumn(m_height, 0);
+    return IntMap(m_width, blankColumn);
 }
