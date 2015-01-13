@@ -2,6 +2,7 @@
 #define LINE_H
 
 #include "drawable.h"
+#include "../tools/tool.h"
 
 class Line : public Drawable
 {
@@ -10,10 +11,18 @@ public:
 
     QString getCode();
     int weight() const;
+    QPoint from() {return m_p1;}
+    QPoint to() {return m_p2;}
+
+    void setWeight(int w);
+
+    void paint(QPainter*);
 
 private:
     QPoint m_p1;
     QPoint m_p2;
+
+    int m_weight;
 };
 
 #endif // LINE_H

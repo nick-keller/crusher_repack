@@ -16,7 +16,14 @@ public:
     int w() const {return m_rect.width();}
     int h() const {return m_rect.height();}
 
+    void setX(int x);
+    void setY(int y);
+    void setRight(int r);
+    void setBottom(int b);
+
     bool contains(int x, int y);
+
+    void paint(QPainter*);
 
 private:
     QRect m_rect;

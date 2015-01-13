@@ -15,6 +15,9 @@ public:
     explicit CodeDisplayDialog(QString code, QWidget *parent = 0);
     ~CodeDisplayDialog();
 
+public slots:
+    void on_copyBtn_clicked();
+
 private:
     Ui::CodeDisplayDialog *ui;
 };

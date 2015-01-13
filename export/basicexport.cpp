@@ -16,9 +16,16 @@ void BasicExport::generate()
     this->findLines();
 
     QString code;
+    QImage image(128, 64, QImage::Format_ARGB32);
+    image.fill(Qt::white);
+    QPainter painter(&image);
 
-    for(int i(0); i < m_drawables.size(); ++i)
-        code += m_drawables[i]->getCode() + "<br>";
+    for(int i(0); i < m_lines.size(); ++i){
+        code += m_lines[i].getCode() + "<br>";
+        m_lines[i].paint(&painter);
+    }
+
+    image.save("c.png");
 
     CodeDisplayDialog *codeDialog = new CodeDisplayDialog(code);
     codeDialog->exec();
@@ -27,32 +34,32 @@ void BasicExport::generate()
 
 void BasicExport::convertImage(QImage image)
 {
-    QVector<bool> blankColumn(m_height, false);
-    m_image = QVector< QVector<bool> >(m_width, blankColumn);
+    m_leftToDraw = getBoolMap();
+    m_rectArea = getBoolMap();
+    m_originalImage = getBoolMap();
 
     for(int i(0); i < image.width(); ++i){
         for(int j(0); j < image.height(); ++j){
-            if(QColor(image.pixel(i, j)) == BLACK)
-                m_image[i][j] = true;
+            if(QColor(image.pixel(i, j)) == BLACK){
+                m_leftToDraw[i][j] = true;
+                m_originalImage[i][j] = true;
+            }
         }
     }
 }
 
-void BasicExport::findDots()
-{
-
-}
-
 void BasicExport::findLines()
 {
+    QList<Line> lines;
+
     for(int j(0); j < m_height; ++j){
         for(int i(0); i < m_width; ++i){
-            if(!isPxlOn(i, j))
+            if(!isPxlOnOrRect(i, j))
                 continue;
 
             // H -------------------------------------------------------------------------
             int hLength = 1;
-            while(isPxlOn(i + hLength, j))
+            while(isPxlOnOrRect(i + hLength, j))
                 hLength++;
 
             int above, below;
@@ -60,43 +67,43 @@ void BasicExport::findLines()
                 above = 1;
                 below = 1;
 
-                if(!isHLineOn(i - step, j -1, step))
-                    while(isHLineOn(i + above * step, j + above, step))
+                if(!isHLineOnOrRect(i - step, j -1, step))
+                    while(isHLineOnOrRect(i + above * step, j + above, step))
                         above++;
                 above--;
 
-                if(above == 1 && isPxlOn(i -1, j) && isPxlOn(i + step *2, j +1))
+                if(above == 1 && isPxlOnOrRect(i -1, j) && isPxlOnOrRect(i + step *2, j +1))
                     above = 0;
 
-                if(above == 1 && step == 1  && isPxlOn(i, j -1) && isPxlOn(i +1, j +2))
+                if(above == 1 && step == 1  && isPxlOnOrRect(i, j -1) && isPxlOnOrRect(i +1, j +2))
                     above = 0;
 
-                if(!isHLineOn(i - step, j +1, step))
-                    while(isHLineOn(i + below * step, j - below, step))
+                if(!isHLineOnOrRect(i - step, j +1, step))
+                    while(isHLineOnOrRect(i + below * step, j - below, step))
                         below++;
                 below--;
 
-                if(below == 1 && isPxlOn(i -1, j) && isPxlOn(i + step *2, j -1))
+                if(below == 1 && isPxlOnOrRect(i -1, j) && isPxlOnOrRect(i + step *2, j -1))
                     below = 0;
 
-                if(below == 1 && step == 1  && isPxlOn(i, j -1) && isPxlOn(i -1, j +2))
+                if(below == 1 && step == 1  && isPxlOnOrRect(i, j -1) && isPxlOnOrRect(i -1, j +2))
                     below = 0;
 
-                if(above)
-                    m_drawables.append(new Line(i, j, i + (above +1) * step -1, j + above));
+                if(above && lineHasAtLeastOnePxlNotRect(i, j, i + (above +1) * step -1, j + above))
+                    lines.append(Line(i, j, i + (above +1) * step -1, j + above));
 
-                if(below)
-                    m_drawables.append(new Line(i, j, i + (below +1) * step -1, j - below));
+                if(below && lineHasAtLeastOnePxlNotRect(i, j, i + (below +1) * step -1, j - below))
+                    lines.append(Line(i, j, i + (below +1) * step -1, j - below));
             }
 
             if(hLength != 1){
-                if(!above && !below && !isPxlOn(i -1, j) && !isHLineOn(i - hLength, j -1, hLength) && !isHLineOn(i - hLength, j +1, hLength))
-                    m_drawables.append(new Line(i, j, i + hLength -1, j));
+                if(!above && !below && !isPxlOnOrRect(i -1, j) && !isHLineOnOrRect(i - hLength, j -1, hLength) && !isHLineOnOrRect(i - hLength, j +1, hLength) && lineHasAtLeastOnePxlNotRect(i, j, i + hLength -1, j))
+                    lines.append(Line(i, j, i + hLength -1, j));
             }
 
             // V -------------------------------------------------------------------------
             int vLength = 1;
-            while(isPxlOn(i, j + vLength))
+            while(isPxlOnOrRect(i, j + vLength))
                 vLength++;
 
             int right = 0, left = 0;
@@ -104,35 +111,81 @@ void BasicExport::findLines()
                 right = 1;
                 left = 1;
 
-                if(!isVLineOn(i -1, j - step, step))
-                    while(isVLineOn(i + right, j + right * step, step))
+                if(!isVLineOnOrRect(i -1, j - step, step))
+                    while(isVLineOnOrRect(i + right, j + right * step, step))
                         right++;
                 right--;
 
-                if(right == 1 && isPxlOn(i, j -1) && isPxlOn(i +1, j + step *2))
+                if(right == 1 && isPxlOnOrRect(i, j -1) && isPxlOnOrRect(i +1, j + step *2))
                     right = 0;
 
-                if(!isVLineOn(i +1, j - step, step))
-                    while(isVLineOn(i - left, j + left * step, step))
+                if(!isVLineOnOrRect(i +1, j - step, step))
+                    while(isVLineOnOrRect(i - left, j + left * step, step))
                         left++;
                 left--;
 
-                if(left == 1 && isPxlOn(i, j -1) && isPxlOn(i -1, j  + step *2))
+                if(left == 1 && isPxlOnOrRect(i, j -1) && isPxlOnOrRect(i -1, j  + step *2))
                     left = 0;
 
-                if(right)
-                    m_drawables.append(new Line(i, j, i + right, j + (right +1) * step -1));
+                if(right && lineHasAtLeastOnePxlNotRect(i, j, i + right, j + (right +1) * step -1))
+                    lines.append(Line(i, j, i + right, j + (right +1) * step -1));
 
-                if(left)
-                    m_drawables.append(new Line(i, j, i - left, j + (left +1) * step -1));
+                if(left && lineHasAtLeastOnePxlNotRect(i, j, i - left, j + (left +1) * step -1))
+                    lines.append(Line(i, j, i - left, j + (left +1) * step -1));
             }
 
-            if(vLength == 1 && (isPxlOn(i -1, j +1) || isPxlOn(i +1, j +1)))
+            if(vLength == 1 && (isPxlOnOrRect(i -1, j +1) || isPxlOnOrRect(i +1, j +1) || isPxlOnOrRect(i +1, j)|| isPxlOnOrRect(i -1, j)))
                 continue;
 
-            if(!right && !left && !isPxlOn(i, j -1) && !isVLineOn(i -1, j - vLength, vLength) && !isVLineOn(i +1, j - vLength, vLength))
-                m_drawables.append(new Line(i, j, i, j + vLength -1));
+            if(!right && !left && !isPxlOnOrRect(i, j -1) && !isVLineOnOrRect(i -1, j - vLength, vLength) && !isVLineOnOrRect(i +1, j - vLength, vLength) && lineHasAtLeastOnePxlNotRect(i, j, i, j + vLength -1))
+                lines.append(Line(i, j, i, j + vLength -1));
         }
+    }
+
+    // filter
+    IntMap pxlRedundancy = getIntMap();
+    IntMap tempImg = getIntMap();
+
+    for(int i(0); i < m_width; ++i)
+        for(int j(0); j < m_height; ++j)
+            if(m_rectArea[i][j]){
+                tempImg[i][j] = 1;
+                pxlRedundancy[i][j] = 1;
+            }
+
+    for(int l(0); l < lines.size(); ++l)
+        addLineToRedundancyMap(pxlRedundancy, lines[l]);
+
+    for(int l(0); l < lines.size(); ++l)
+        if(lineHasExclusivePixel(pxlRedundancy, lines[l])){
+            m_lines << Line(lines[l].from().x(), lines[l].from().y(), lines[l].to().x(), lines[l].to().y());
+
+
+            for(LineIterator point(lines[l]); point.hasNext(); ++point)
+                tempImg[point.x()][point.y()] = 1;
+
+            lines.removeAt(l);
+            l--;
+        }
+
+    qSort(lines.begin(), lines.end(), qGreater<Line>());
+
+    for(int i(0); i < m_width; ++i)
+        for(int j(0); j < m_height; ++j)
+            if(m_rectArea[i][j])
+                tempImg[i][j] = 1;
+
+    for(int l(0); l < lines.size(); ++l){
+        bool usefull = false;
+
+        for(LineIterator point(lines[l]); point.hasNext(); ++point)
+            if(tempImg[point.x()][point.y()] == 0){
+                usefull = true;
+                tempImg[point.x()][point.y()] = 1;
+            }
+
+        if(usefull);
+            m_lines << Line(lines[l].from().x(), lines[l].from().y(), lines[l].to().x(), lines[l].to().y());
     }
 }
 
@@ -209,32 +262,110 @@ void BasicExport::findRects()
     left.clear();
     right.clear();
 
-    // filter rects
+    // get only rects that have exlisive pixels
     IntMap pxlRedundancy = getIntMap();
-    for(int i(0); i < rects.size(); ++i){
-        Rect r = rects[i];
 
-        for(int i(r.x()); i < r.x() + r.w(); ++i)
-            for(int j(r.y()); j < r.y() + r.h(); ++j)
-                pxlRedundancy[i][j] += 1;
-    }
+    for(int i(0); i < rects.size(); ++i)
+        addRectToRedundancyMap(pxlRedundancy, rects[i]);
 
     for(int i(0); i < m_width; ++i)
         for(int j(0); j < m_height; ++j)
             if(pxlRedundancy[i][j] == 1)
                 for(int r(0); r < rects.size(); ++r)
                     if(rects[r].contains(i, j)){
-                        m_drawables.append(new Rect(rects[r].x(), rects[r].y(), rects[r].w(), rects[r].h()));
-
-                        // clear rect from image
-                        for(int i(rects[r].x()); i < rects[r].x() + rects[r].w(); ++i)
-                            for(int j(rects[r].y()); j < rects[r].y() + rects[r].h(); ++j)
-                                m_image[i][j] = false;
+                        m_rects << Rect(rects[r].x(), rects[r].y(), rects[r].w(), rects[r].h());
 
                         rects.removeAt(r);
+                        r--;
                         break;
                     }
 
+
+    // sort found rects, greter first
+    qSort(m_rects.begin(), m_rects.end(), qGreater<Rect>());
+
+    // filter unusefull rects due to overlap
+    pxlRedundancy = getIntMap();
+    for(int i(0); i < m_rects.size(); ++i){
+        int maxX = 0;
+        int maxY = 0;
+        int minX = SCREEN_WIDTH;
+        int minY = SCREEN_HEIGHT;
+
+        Rect r = m_rects[i];
+
+        for(int x(r.x()); x < r.x() + r.w(); ++x){
+            for(int y(r.y()); y < r.y() + r.h(); ++y){
+                if(pxlRedundancy[x][y] == 0){
+                    maxX = std::max(maxX, x);
+                    maxY = std::max(maxY, y);
+                    minX = std::min(minX, x);
+                    minY = std::min(minY, y);
+                }
+
+                pxlRedundancy[x][y] += 1;
+            }
+        }
+
+        if(maxX - minX +1 <= 1 || maxY - minY +1 <= 1){
+            addRectToRedundancyMap(pxlRedundancy, m_rects[i], -1);
+            m_rects.removeAt(i);
+            i--;
+        }
+        else{
+            m_rects[i].setX(minX);
+            m_rects[i].setY(minY);
+            m_rects[i].setRight(maxX);
+            m_rects[i].setBottom(maxY);
+        }
+    }
+
+    // try to find others usefull rects
+    qSort(rects.begin(), rects.end(), qGreater<Rect>());
+
+    for(int i(0); i < rects.size(); ++i){
+        int maxX = 0;
+        int maxY = 0;
+        int minX = SCREEN_WIDTH;
+        int minY = SCREEN_HEIGHT;
+
+        for(int x(rects[i].x()); x < rects[i].x() + rects[i].w(); ++x){
+            for(int y(rects[i].y()); y < rects[i].y() + rects[i].h(); ++y){
+                if(pxlRedundancy[x][y] == 0){
+                    maxX = std::max(maxX, x);
+                    maxY = std::max(maxY, y);
+                    minX = std::min(minX, x);
+                    minY = std::min(minY, y);
+                }
+
+                pxlRedundancy[x][y] += 1;
+            }
+        }
+
+        if(maxX - minX +1 <= 1 || maxY - minY +1 <= 1){
+            addRectToRedundancyMap(pxlRedundancy, rects[i], -1);
+        }
+        else{
+            rects[i].setX(minX);
+            rects[i].setY(minY);
+            rects[i].setRight(maxX);
+            rects[i].setBottom(maxY);
+
+            m_rects << Rect(rects[i].x(), rects[i].y(), rects[i].w(), rects[i].h());
+        }
+
+        rects.removeAt(i);
+        i--;
+    }
+
+    for(int i(0); i < m_rects.size(); ++i){
+        for(int x(m_rects[i].x()); x < m_rects[i].x() + m_rects[i].w(); ++x){
+            for(int y(m_rects[i].y()); y < m_rects[i].y() + m_rects[i].h(); ++y){
+                m_rectArea[x][y] = true;
+                m_leftToDraw[x][y] = false;
+            }
+        }
+    }
 }
 
 bool BasicExport::isPxlOn(int x, int y)
@@ -242,13 +373,30 @@ bool BasicExport::isPxlOn(int x, int y)
     if(x < 0 || y < 0 || x >= m_width || y >= m_height)
         return false;
 
-    return m_image[x][y];
+    return m_leftToDraw[x][y];
+}
+
+bool BasicExport::isPxlOnOrRect(int x, int y)
+{
+    if(x < 0 || y < 0 || x >= m_width || y >= m_height)
+        return false;
+
+    return m_leftToDraw[x][y] || m_rectArea[x][y];
 }
 
 bool BasicExport::isHLineOn(int x, int y, int length)
 {
     for(int i(x); i < x + length; ++i)
         if(!isPxlOn(i, y))
+            return false;
+
+    return true;
+}
+
+bool BasicExport::isHLineOnOrRect(int x, int y, int length)
+{
+    for(int i(x); i < x + length; ++i)
+        if(!isPxlOnOrRect(i, y))
             return false;
 
     return true;
@@ -263,8 +411,65 @@ bool BasicExport::isVLineOn(int x, int y, int length)
     return true;
 }
 
+bool BasicExport::isVLineOnOrRect(int x, int y, int length)
+{
+    for(int i(y); i < y + length; ++i)
+        if(!isPxlOnOrRect(x, i))
+            return false;
+
+    return true;
+}
+
+bool BasicExport::lineHasAtLeastOnePxlNotRect(int x1, int y1, int x2, int y2)
+{
+    for(LineIterator point(Line(x1, y1, x2, y2)); point.hasNext(); ++point)
+        if(isPxlOn(point.x(), point.y()))
+            return true;
+
+    return false;
+}
+
+void BasicExport::addLineToRedundancyMap(IntMap &map, Line line)
+{
+    for(LineIterator point(line); point.hasNext(); ++point){
+        map[point.x()][point.y()] += 1;
+    }
+}
+
+bool BasicExport::lineHasExclusivePixel(IntMap &map, Line line)
+{
+    for(LineIterator point(line); point.hasNext(); ++point)
+        if(map[point.x()][point.y()] == 1)
+            return true;
+
+    return false;
+}
+
+void BasicExport::addRectToRedundancyMap(IntMap &map, Rect r, int value)
+{
+    for(int i(r.x()); i < r.x() + r.w(); ++i)
+        for(int j(r.y()); j < r.y() + r.h(); ++j)
+            map[i][j] += value;
+}
+
+bool BasicExport::rectHasExclusivePixel(IntMap &map, Rect r)
+{
+    for(int i(r.x()); i < r.x() + r.w(); ++i)
+        for(int j(r.y()); j < r.y() + r.h(); ++j)
+            if(map[i][j] == 1)
+                return true;
+
+    return false;
+}
+
 IntMap BasicExport::getIntMap()
 {
     QVector<int> blankColumn(m_height, 0);
     return IntMap(m_width, blankColumn);
+}
+
+BoolMap BasicExport::getBoolMap()
+{
+    QVector<bool> blankColumn(m_height, false);
+    return BoolMap(m_width, blankColumn);
 }

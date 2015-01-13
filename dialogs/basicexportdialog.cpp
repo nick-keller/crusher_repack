@@ -18,6 +18,7 @@ BasicExportDialog::BasicExportDialog(QWidget *parent) :
     lineGrp->addButton(ui->lineDrawStat);
 
     QButtonGroup *rectGrp = new QButtonGroup(this);
+    rectGrp->addButton(ui->rectFline);
     rectGrp->addButton(ui->rectForLoop);
     rectGrp->addButton(ui->rectDrawStat);
 

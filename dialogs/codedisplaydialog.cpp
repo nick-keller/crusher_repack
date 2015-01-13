@@ -13,3 +13,9 @@ CodeDisplayDialog::~CodeDisplayDialog()
 {
     delete ui;
 }
+
+void CodeDisplayDialog::on_copyBtn_clicked()
+{
+    ui->code->selectAll();
+    ui->code->copy();
+}

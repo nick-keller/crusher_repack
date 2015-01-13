@@ -11,6 +11,7 @@ public:
 
     virtual QString getCode();
     virtual int weight() const;
+    virtual void paint(QPainter*){}
 };
 
 bool operator <(const Drawable& a, const Drawable& b);

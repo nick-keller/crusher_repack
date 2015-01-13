@@ -8,8 +8,11 @@
 #include "drawable.h"
 #include "line.h"
 #include "rect.h"
+#include "dot.h"
+#include "lineiterator.h"
 
 typedef QVector< QVector<int> > IntMap;
+typedef QVector< QVector<bool> > BoolMap;
 
 class BasicExport
 {
@@ -24,16 +27,33 @@ private:
     void findRects();
 
     bool isPxlOn(int x, int y);
+    bool isPxlOnOrRect(int x, int y);
     bool isHLineOn(int x, int y, int length);
+    bool isHLineOnOrRect(int x, int y, int length);
     bool isVLineOn(int x, int y, int length);
+    bool isVLineOnOrRect(int x, int y, int length);
+    bool lineHasAtLeastOnePxlNotRect(int x1, int y1, int x2, int y2);
+
+    void addLineToRedundancyMap(IntMap& map, Line line);
+    bool lineHasExclusivePixel(IntMap& map, Line line);
+
+    void addRectToRedundancyMap(IntMap& map, Rect r, int value = 1);
+    bool rectHasExclusivePixel(IntMap& map, Rect rect);
 
     IntMap getIntMap();
+    BoolMap getBoolMap();
 
 private:
     int m_width;
     int m_height;
-    QVector< QVector<bool> > m_image;
-    QVector<Drawable*> m_drawables;
+    BoolMap m_originalImage;
+    BoolMap m_leftToDraw;
+    BoolMap m_rectArea;
+    BoolMap m_lineArea;
+    BoolMap m_dotArea;
+    QList<Rect> m_rects;
+    QList<Line> m_lines;
+    QList<Dot> m_dots;
 };
 
 #endif // BASICEXPORT_H

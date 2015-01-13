@@ -38,7 +38,8 @@ SOURCES += \
     export/dot.cpp \
     export/line.cpp \
     export/rect.cpp \
-    dialogs/codedisplaydialog.cpp
+    dialogs/codedisplaydialog.cpp \
+    export/lineiterator.cpp
 
 HEADERS += \
     src/layer.h \
@@ -79,7 +80,8 @@ HEADERS += \
     export/dot.h \
     export/line.h \
     export/rect.h \
-    dialogs/codedisplaydialog.h
+    dialogs/codedisplaydialog.h \
+    export/lineiterator.h
 
 RESOURCES += \
     icons.qrc \
