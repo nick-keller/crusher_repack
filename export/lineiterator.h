@@ -7,7 +7,7 @@
 class LineIterator
 {
 public:
-    LineIterator(Line line);
+    LineIterator(Line);
     LineIterator(QPoint from, QPoint to);
 
     QPoint at() {return m_at;}

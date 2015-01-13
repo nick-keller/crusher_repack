@@ -50,5 +50,5 @@ bool Rect::contains(int x, int y)
 
 void Rect::paint(QPainter *painter)
 {
-    painter->fillRect(m_rect.x(), m_rect.y(), m_rect.width(), m_rect.height(), QColor(qrand() %255, qrand() %255, qrand() %255, 128));
+    painter->fillRect(m_rect.x(), m_rect.y(), m_rect.width(), m_rect.height(), Qt::black);
 }

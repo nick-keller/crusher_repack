@@ -18,6 +18,10 @@ public:
 
     void paint(QPainter*);
 
+    void constrain(int minX, int minY, int maxX, int maxY);
+
+    bool isDot();
+
 private:
     QPoint m_p1;
     QPoint m_p2;

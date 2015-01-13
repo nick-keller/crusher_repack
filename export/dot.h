@@ -6,9 +6,11 @@
 class Dot : public Drawable
 {
 public:
-    Dot();
+    Dot(QPoint dot);
 
+    QString getCode();
     int weight() const;
+    void paint(QPainter*);
 
 private:
     QPoint m_point;

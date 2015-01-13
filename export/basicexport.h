@@ -26,15 +26,15 @@ private:
     void findLines();
     void findRects();
 
+    bool isPxlLeftToDraw(int x, int y);
     bool isPxlOn(int x, int y);
-    bool isPxlOnOrRect(int x, int y);
+    bool isHLineLeftToDraw(int x, int y, int length);
     bool isHLineOn(int x, int y, int length);
-    bool isHLineOnOrRect(int x, int y, int length);
+    bool isVLineLeftToDraw(int x, int y, int length);
     bool isVLineOn(int x, int y, int length);
-    bool isVLineOnOrRect(int x, int y, int length);
-    bool lineHasAtLeastOnePxlNotRect(int x1, int y1, int x2, int y2);
+    bool lineHasAtLeastOnePxlLeftToDraw(int x1, int y1, int x2, int y2);
 
-    void addLineToRedundancyMap(IntMap& map, Line line);
+    void addLineToRedundancyMap(IntMap& map, Line line, int value = 1);
     bool lineHasExclusivePixel(IntMap& map, Line line);
 
     void addRectToRedundancyMap(IntMap& map, Rect r, int value = 1);
