@@ -12,7 +12,7 @@ class CodeDisplayDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit CodeDisplayDialog(QString code, QWidget *parent = 0);
+    explicit CodeDisplayDialog(QString code, int rects, int lines, int dots, QWidget *parent = 0);
     ~CodeDisplayDialog();
 
 public slots:

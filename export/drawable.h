@@ -3,6 +3,7 @@
 
 #include <QtWidgets>
 #include <cmath>
+#include "../src/const.h"
 
 class Drawable
 {

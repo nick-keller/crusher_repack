@@ -9,6 +9,9 @@ public:
     Rect(int x, int y, int width, int height);
 
     QString getCode();
+    QString getFLineCode();
+    QString getForLoopCode(QString var);
+
     int weight() const;
 
     int x() const {return m_rect.x();}

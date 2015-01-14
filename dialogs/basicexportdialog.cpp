@@ -26,8 +26,6 @@ BasicExportDialog::BasicExportDialog(QWidget *parent) :
     QObject::connect(ui->dotListY, SIGNAL(currentIndexChanged(int)), this, SLOT(customDrawStatListY(int)));
     QObject::connect(ui->lineListX, SIGNAL(currentIndexChanged(int)), this, SLOT(customDrawStatListX(int)));
     QObject::connect(ui->lineListY, SIGNAL(currentIndexChanged(int)), this, SLOT(customDrawStatListY(int)));
-    QObject::connect(ui->pathListX, SIGNAL(currentIndexChanged(int)), this, SLOT(customDrawStatListX(int)));
-    QObject::connect(ui->pathListY, SIGNAL(currentIndexChanged(int)), this, SLOT(customDrawStatListY(int)));
     QObject::connect(ui->rectListX, SIGNAL(currentIndexChanged(int)), this, SLOT(customDrawStatListX(int)));
     QObject::connect(ui->rectListY, SIGNAL(currentIndexChanged(int)), this, SLOT(customDrawStatListY(int)));
 
@@ -39,6 +37,41 @@ BasicExportDialog::BasicExportDialog(QWidget *parent) :
 BasicExportDialog::~BasicExportDialog()
 {
     delete ui;
+}
+
+BasicExportDialog::Function BasicExportDialog::dotsFunction()
+{
+    if(ui->dotPlot->isChecked())
+        return PlotOn;
+    if(ui->dotPxl->isChecked())
+        return PxlOn;
+    if(ui->dotFline->isChecked())
+        return FLine;
+    return DrawStat;
+}
+
+int BasicExportDialog::dotsListX()
+{
+    return ui->dotListX->currentIndex() +1;
+}
+
+int BasicExportDialog::dotsListY()
+{
+    return ui->dotListY->currentIndex() +1;
+}
+
+BasicExportDialog::Function BasicExportDialog::rectsFunction()
+{
+    if(ui->rectFline->isChecked())
+        return FLine;
+    if(ui->rectForLoop->isChecked())
+        return ForLoop;
+    return DrawStat;
+}
+
+QString BasicExportDialog::rectsLoopVar()
+{
+    return ui->rectLoopVar->currentText();
 }
 
 void BasicExportDialog::on_globalDrawStat_clicked(bool checked)
@@ -60,7 +93,6 @@ void BasicExportDialog::on_globalListX_currentIndexChanged(int i)
     if(i < 6){
         ui->dotListX->setCurrentIndex(i);
         ui->lineListX->setCurrentIndex(i);
-        ui->pathListX->setCurrentIndex(i);
         ui->rectListX->setCurrentIndex(i);
     }
 }
@@ -70,7 +102,6 @@ void BasicExportDialog::on_globalListY_currentIndexChanged(int i)
     if(i < 6){
         ui->dotListY->setCurrentIndex(i);
         ui->lineListY->setCurrentIndex(i);
-        ui->pathListY->setCurrentIndex(i);
         ui->rectListY->setCurrentIndex(i);
     }
 }
@@ -91,5 +122,9 @@ void BasicExportDialog::customDrawStat(bool checked)
 {
     if(!checked){
         ui->globalDrawStat->setChecked(false);
+    }
+    else{
+        if(ui->dotDrawStat->isChecked() && ui->lineDrawStat->isChecked() && ui->rectDrawStat->isChecked())
+            ui->globalDrawStat->setChecked(true);
     }
 }

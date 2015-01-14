@@ -12,8 +12,17 @@ class BasicExportDialog : public QDialog
     Q_OBJECT
 
 public:
+    enum Function {PxlOn, PlotOn, FLine, ForLoop, DrawStat};
+
     explicit BasicExportDialog(QWidget *parent = 0);
     ~BasicExportDialog();
+
+    Function dotsFunction();
+    int dotsListX();
+    int dotsListY();
+
+    Function rectsFunction();
+    QString rectsLoopVar();
 
 public slots:
     void on_globalDrawStat_clicked(bool);

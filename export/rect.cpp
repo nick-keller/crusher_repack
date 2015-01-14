@@ -10,6 +10,40 @@ QString Rect::getCode()
     return "Rect " + QString::number(m_rect.x()) + "," + QString::number(m_rect.y()) + "," + QString::number(m_rect.width()) + "," + QString::number(m_rect.height()) + "\n";
 }
 
+QString Rect::getFLineCode()
+{
+    QString code;
+    QTextStream stream(&code);
+
+    if(m_rect.width() < m_rect.height())
+        for(int i(m_rect.x()); i < m_rect.x() + m_rect.width(); ++i)
+            stream << "F-Line " << i +1 << "," << SCREEN_HEIGHT - m_rect.y() << "," << i +1 << "," << SCREEN_HEIGHT - m_rect.y() - m_rect.height() +1 << "<br>";
+    else
+        for(int i(m_rect.y()); i < m_rect.y() + m_rect.height(); ++i)
+            stream << "F-Line " << m_rect.x() +1 << "," << SCREEN_HEIGHT - i << "," << m_rect.x() + m_rect.width() << "," << SCREEN_HEIGHT - i << "<br>";
+
+    return code;
+}
+
+QString Rect::getForLoopCode(QString var)
+{
+    QString code;
+    QTextStream stream(&code);
+
+    if(m_rect.width() < m_rect.height()){
+        stream << "For " << m_rect.x() +1 << "->" << var << " To " << m_rect.x() + m_rect.width() << "<br>";
+        stream << "F-Line " << var << "," << SCREEN_HEIGHT - m_rect.y() << "," << var << "," << SCREEN_HEIGHT - m_rect.y() - m_rect.height() +1 << "<br>";
+        stream << "Next<br>";
+    }
+    else{
+        stream << "For " << SCREEN_HEIGHT - m_rect.y() - m_rect.height() +1 << "->" << var << " To " << SCREEN_HEIGHT - m_rect.y() << "<br>";
+        stream << "F-Line " << m_rect.x() +1 << "," << var << "," << m_rect.x() + m_rect.width() << "," << var << "<br>";
+        stream << "Next<br>";
+    }
+
+    return code;
+}
+
 int Rect::weight() const
 {
     return m_rect.size().height() * m_rect.size().width();

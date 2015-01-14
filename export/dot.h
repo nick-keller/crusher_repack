@@ -9,7 +9,14 @@ public:
     Dot(QPoint dot);
 
     QString getCode();
+    QString getPlotOnCode();
+    QString getPxlOnCode();
+    QString getFLineCode();
+
     int weight() const;
+    int x() {return m_point.x();}
+    int y() {return m_point.y();}
+
     void paint(QPainter*);
 
 private:

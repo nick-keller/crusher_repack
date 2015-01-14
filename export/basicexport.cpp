@@ -9,37 +9,21 @@ BasicExport::BasicExport(QImage image) :
 void BasicExport::generate()
 {
     BasicExportDialog *exportDialog = new BasicExportDialog();
-    exportDialog->exec();
-    delete exportDialog;
+    if(exportDialog->exec() == QDialog::Rejected)
+        return;
 
     this->findRects();
     this->findLines();
 
     QString code;
-    QImage image(128, 64, QImage::Format_ARGB32);
-    image.fill(Qt::white);
-    QPainter painter(&image);
+    code += this->getRectsCode(exportDialog);
+    code += this->getDotsCode(exportDialog);
 
-    for(int i(0); i < m_rects.size(); ++i){
-        code += m_rects[i].getCode() + "<br>";
-        m_rects[i].paint(&painter);
-    }
-
-    for(int i(0); i < m_lines.size(); ++i){
-        code += m_lines[i].getCode() + "<br>";
-        m_lines[i].paint(&painter);
-    }
-
-    for(int i(0); i < m_dots.size(); ++i){
-        code += m_dots[i].getCode() + "<br>";
-        m_dots[i].paint(&painter);
-    }
-
-    image.save("c.png");
-
-    CodeDisplayDialog *codeDialog = new CodeDisplayDialog(code);
+    CodeDisplayDialog *codeDialog = new CodeDisplayDialog(code, m_rects.size(), m_lines.size(), m_dots.size());
     codeDialog->exec();
+
     delete codeDialog;
+    delete exportDialog;
 }
 
 void BasicExport::convertImage(QImage image)
@@ -506,6 +490,66 @@ bool BasicExport::rectHasExclusivePixel(IntMap &map, Rect r)
                 return true;
 
     return false;
+}
+
+QString BasicExport::getRectsCode(BasicExportDialog *dialog)
+{
+    QString code;
+
+    if(dialog->rectsFunction() == BasicExportDialog::FLine){
+        for(int i(0); i < m_rects.size(); ++i)
+            code += m_rects[i].getFLineCode() + "<br>";
+    }
+
+    if(dialog->rectsFunction() == BasicExportDialog::ForLoop){
+        for(int i(0); i < m_rects.size(); ++i)
+            code += m_rects[i].getForLoopCode(dialog->rectsLoopVar()) + "<br>";
+    }
+
+    return code;
+}
+
+QString BasicExport::getDotsCode(BasicExportDialog *dialog)
+{
+    QString code;
+
+    if(dialog->dotsFunction() == BasicExportDialog::PlotOn){
+        for(int i(0); i < m_dots.size(); ++i)
+            code += m_dots[i].getPlotOnCode() + "<br>";
+    }
+
+    if(dialog->dotsFunction() == BasicExportDialog::PxlOn){
+        for(int i(0); i < m_dots.size(); ++i)
+            code += m_dots[i].getPxlOnCode() + "<br>";
+    }
+
+    if(dialog->dotsFunction() == BasicExportDialog::FLine){
+        for(int i(0); i < m_dots.size(); ++i)
+            code += m_dots[i].getFLineCode() + "<br>";
+    }
+
+    if(dialog->dotsFunction() == BasicExportDialog::DrawStat){
+
+        if(m_dots.size() == 0)
+            return "";
+
+        code += "S-Gph1 DrawOn,Scatter,List " + QString::number(dialog->dotsListX()) + ",List " + QString::number(dialog->dotsListY()) + ",1,Dot<br>";
+
+        for(int l(0); l < m_dots.size(); l += 255){
+            code += "{";
+            for(int k(l); k < l + 255 && k < m_dots.size(); ++k)
+                code +=  QString::number(m_dots[k].x() +1) + (k == l + 254 || k == m_dots.size() -1? "" : ",");
+            code += "->List " + QString::number(dialog->dotsListX()) + "<br>";
+
+            code += "{";
+            for(int k(l); k < l + 255 && k < m_dots.size(); ++k)
+                code +=  QString::number(SCREEN_HEIGHT - m_dots[k].y()) + (k == l + 254 || k == m_dots.size() -1? "" : ",");
+            code += "->List " + QString::number(dialog->dotsListY()) + "<br>";
+            code += "DrawStat<br>";
+        }
+    }
+
+    return code;
 }
 
 IntMap BasicExport::getIntMap()

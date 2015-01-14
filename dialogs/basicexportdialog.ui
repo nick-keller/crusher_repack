@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>393</width>
-    <height>518</height>
+    <height>459</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,6 +47,9 @@
             </item>
             <item>
              <widget class="QComboBox" name="posVarX">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -196,6 +199,9 @@
             </item>
             <item>
              <widget class="QComboBox" name="posVarY">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -751,114 +757,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="paths">
-        <property name="title">
-         <string>Paths</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <item>
-          <widget class="QWidget" name="widget_6" native="true">
-           <layout class="QHBoxLayout" name="horizontalLayout_6">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="label_2">
-              <property name="text">
-               <string>Lists:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="pathListX">
-              <item>
-               <property name="text">
-                <string>List 1</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>List 2</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>List 3</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>List 4</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>List 5</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>List 6</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="pathListY">
-              <property name="currentIndex">
-               <number>1</number>
-              </property>
-              <item>
-               <property name="text">
-                <string>List 1</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>List 2</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>List 3</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>List 4</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>List 5</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>List 6</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
        <widget class="QGroupBox" name="rect">
         <property name="title">
          <string>Rectangles</string>
@@ -911,6 +809,9 @@
             </item>
             <item>
              <widget class="QLabel" name="label">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string>Var:</string>
               </property>
@@ -918,6 +819,9 @@
             </item>
             <item>
              <widget class="QComboBox" name="rectLoopVar">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -929,6 +833,9 @@
                 <width>40</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="currentIndex">
+               <number>19</number>
               </property>
               <item>
                <property name="text">
@@ -1191,7 +1098,7 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>271</x>
+     <x>309</x>
      <y>243</y>
     </hint>
     <hint type="destinationlabel">
@@ -1213,6 +1120,198 @@
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>posVar</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>posVarX</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>179</x>
+     <y>52</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>218</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>posVar</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>posVarY</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>90</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>275</x>
+     <y>51</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dotDrawStat</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>dotListX</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>67</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>144</x>
+     <y>231</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dotDrawStat</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>dotListY</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>99</x>
+     <y>222</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>248</x>
+     <y>231</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineDrawStat</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lineListX</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>313</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>158</x>
+     <y>312</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineDrawStat</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lineListY</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>104</x>
+     <y>318</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>252</x>
+     <y>313</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rectDrawStat</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>rectListX</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>69</x>
+     <y>424</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>160</x>
+     <y>423</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rectDrawStat</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>rectListY</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>418</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>247</x>
+     <y>419</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rectForLoop</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>label</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>391</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>231</x>
+     <y>394</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rectForLoop</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>rectLoopVar</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>56</x>
+     <y>389</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>273</x>
+     <y>397</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>globalDrawStat</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>globalListX</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>81</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>142</x>
+     <y>76</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>globalDrawStat</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>globalListY</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>96</x>
+     <y>71</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>235</x>
+     <y>76</y>
     </hint>
    </hints>
   </connection>

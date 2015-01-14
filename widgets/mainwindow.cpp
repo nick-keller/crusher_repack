@@ -59,7 +59,8 @@ void MainWindow::createMenus()
             << m_actions["close"]
             << m_actions["close all"]
             << m_actions["save"]
-            << m_actions["save as"];
+            << m_actions["save as"]
+            << m_actions["export basic"];
 
     // Edit ------------------------------------------------------------------------------
     QMenu *menuEdit = menuBar->addMenu("&Edit");

@@ -40,6 +40,9 @@ private:
     void addRectToRedundancyMap(IntMap& map, Rect r, int value = 1);
     bool rectHasExclusivePixel(IntMap& map, Rect rect);
 
+    QString getRectsCode(BasicExportDialog*);
+    QString getDotsCode(BasicExportDialog*);
+
     IntMap getIntMap();
     BoolMap getBoolMap();
 
