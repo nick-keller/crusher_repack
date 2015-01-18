@@ -74,6 +74,42 @@ QString BasicExportDialog::rectsLoopVar()
     return ui->rectLoopVar->currentText();
 }
 
+int BasicExportDialog::rectsListX()
+{
+    return ui->rectListX->currentIndex() +1;
+}
+
+int BasicExportDialog::rectsListY()
+{
+    return ui->rectListY->currentIndex() +1;
+}
+
+BasicExportDialog::Function BasicExportDialog::linesFunction()
+{
+    if(ui->lineFline->isChecked())
+        return FLine;
+
+    return DrawStat;
+}
+
+int BasicExportDialog::linesListX()
+{
+    return ui->lineListY->currentIndex() +1;
+}
+
+int BasicExportDialog::linesListY()
+{
+    return ui->lineListY->currentIndex() +1;
+}
+
+BasicExportDialog::Strategy BasicExportDialog::drawStatStrategy()
+{
+    if(ui->drawStatStrategy->currentIndex() == 0)
+        return MultipleDrawStat;
+
+    return OutOfRangePoint;
+}
+
 void BasicExportDialog::on_globalDrawStat_clicked(bool checked)
 {
     if(checked){

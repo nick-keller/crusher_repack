@@ -12,6 +12,8 @@ public:
     QString getFLineCode();
     QString getForLoopCode(QString var);
 
+    QList<QPoint> getDrawStatStops();
+
     int weight() const;
 
     int x() const {return m_rect.x();}

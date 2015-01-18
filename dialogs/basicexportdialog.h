@@ -13,6 +13,7 @@ class BasicExportDialog : public QDialog
 
 public:
     enum Function {PxlOn, PlotOn, FLine, ForLoop, DrawStat};
+    enum Strategy {OutOfRangePoint, MultipleDrawStat};
 
     explicit BasicExportDialog(QWidget *parent = 0);
     ~BasicExportDialog();
@@ -23,6 +24,14 @@ public:
 
     Function rectsFunction();
     QString rectsLoopVar();
+    int rectsListX();
+    int rectsListY();
+
+    Function linesFunction();
+    int linesListX();
+    int linesListY();
+
+    Strategy drawStatStrategy();
 
 public slots:
     void on_globalDrawStat_clicked(bool);

@@ -16,7 +16,10 @@ void BasicExport::generate()
     this->findLines();
 
     QString code;
+    code += "ViewWindow 1,127,0,1,63,0,1,1,1<br>";
+
     code += this->getRectsCode(exportDialog);
+    code += this->getLinesCode(exportDialog);
     code += this->getDotsCode(exportDialog);
 
     CodeDisplayDialog *codeDialog = new CodeDisplayDialog(code, m_rects.size(), m_lines.size(), m_dots.size());
@@ -173,50 +176,6 @@ void BasicExport::findLines()
                 m_lines << l;
         }
     }
-
-//    IntMap tempImg = getIntMap();
-
-//    for(int i(0); i < m_width; ++i)
-//        for(int j(0); j < m_height; ++j)
-//            if(m_rectArea[i][j]){
-//                tempImg[i][j] = 1;
-//                pxlRedundancy[i][j] = 1;
-//            }
-
-//    for(int l(0); l < lines.size(); ++l)
-//        addLineToRedundancyMap(pxlRedundancy, lines[l]);
-
-//    for(int l(0); l < lines.size(); ++l)
-//        if(lineHasExclusivePixel(pxlRedundancy, lines[l])){
-//            m_lines << Line(lines[l].from().x(), lines[l].from().y(), lines[l].to().x(), lines[l].to().y());
-
-
-//            for(LineIterator point(lines[l]); point.hasNext(); ++point)
-//                tempImg[point.x()][point.y()] = 1;
-
-//            lines.removeAt(l);
-//            l--;
-//        }
-
-//    qSort(lines.begin(), lines.end(), qGreater<Line>());
-
-//    for(int i(0); i < m_width; ++i)
-//        for(int j(0); j < m_height; ++j)
-//            if(m_rectArea[i][j])
-//                tempImg[i][j] = 1;
-
-//    for(int l(0); l < lines.size(); ++l){
-//        bool usefull = false;
-
-//        for(LineIterator point(lines[l]); point.hasNext(); ++point)
-//            if(tempImg[point.x()][point.y()] == 0){
-//                usefull = true;
-//                tempImg[point.x()][point.y()] = 1;
-//            }
-
-//        if(usefull);
-//            m_lines << Line(lines[l].from().x(), lines[l].from().y(), lines[l].to().x(), lines[l].to().y());
-//    }
 }
 
 void BasicExport::findRects()
@@ -498,12 +457,142 @@ QString BasicExport::getRectsCode(BasicExportDialog *dialog)
 
     if(dialog->rectsFunction() == BasicExportDialog::FLine){
         for(int i(0); i < m_rects.size(); ++i)
-            code += m_rects[i].getFLineCode() + "<br>";
+            code += m_rects[i].getFLineCode();
     }
 
     if(dialog->rectsFunction() == BasicExportDialog::ForLoop){
         for(int i(0); i < m_rects.size(); ++i)
             code += m_rects[i].getForLoopCode(dialog->rectsLoopVar()) + "<br>";
+    }
+
+    if(dialog->rectsFunction() == BasicExportDialog::DrawStat){
+
+        if(m_rects.size() == 0)
+            return "";
+
+        code += "G-Connect<br>";
+
+
+        if(dialog->drawStatStrategy() == BasicExportDialog::OutOfRangePoint){
+            QList<QPoint> stops;
+            int prevToMax = 1;
+
+            for(int i(0); i < m_rects.size(); ++i){
+                stops.append(m_rects[i].getDrawStatStops());
+
+                if(i != m_rects.size() -1)
+                    stops << QPoint(-1, SCREEN_HEIGHT);
+            }
+
+            for(int l(1); l < stops.size(); l += 254){
+                int toMax(0);
+
+                code += "{";
+                for(int k(l -1); k < l + 254 && k < stops.size(); ++k){
+                    code +=  QString::number(stops[k].x() +1) + (k == l + 253 || k == stops.size() -1? "" : ",");
+                    toMax++;
+                }
+                code += "->List " + QString::number(dialog->rectsListX()) + "<br>";
+
+                code += "{";
+                for(int k(l -1); k < l + 254 && k < stops.size(); ++k)
+                    code +=  QString::number(SCREEN_HEIGHT - stops[k].y()) + (k == l + 253 || k == stops.size() -1? "" : ",");
+                code += "->List " + QString::number(dialog->rectsListY()) + "<br>";
+
+                if(prevToMax != toMax)
+                    code += QString::number(toMax) + "->Tomax<br>";
+                prevToMax = toMax;
+
+                code += "Graph(X,Y)=(List " + QString::number(dialog->rectsListX()) + "[T,List " + QString::number(dialog->rectsListY()) + "[T<br>";
+            }
+        }
+        else{
+            int prevToMax = 1;
+
+            for(int i(0); i < m_rects.size(); ++i){
+                int toMax(0);
+                QList<QPoint> stops = m_rects[i].getDrawStatStops();
+
+                code += "{";
+                for(int k(0); k < stops.size(); ++k){
+                    code +=  QString::number(stops[k].x() +1) + (k == stops.size() -1? "" : ",");
+                    toMax++;
+                }
+                code += "->List " + QString::number(dialog->rectsListX()) + "<br>";
+
+                code += "{";
+                for(int k(0); k < stops.size(); ++k)
+                    code +=  QString::number(SCREEN_HEIGHT - stops[k].y()) + (k == stops.size() -1? "" : ",");
+                code += "->List " + QString::number(dialog->rectsListY()) + "<br>";
+
+                if(prevToMax != toMax)
+                    code += QString::number(toMax) + "->Tomax<br>";
+                prevToMax = toMax;
+
+                code += "Graph(X,Y)=(List " + QString::number(dialog->rectsListX()) + "[T,List " + QString::number(dialog->rectsListY()) + "[T<br>";
+            }
+        }
+    }
+
+    return code;
+}
+
+QString BasicExport::getLinesCode(BasicExportDialog *dialog)
+{
+    QString code;
+
+    if(dialog->linesFunction() == BasicExportDialog::FLine){
+        for(int i(0); i < m_lines.size(); ++i)
+            code += m_lines[i].getFLineCode() + "<br>";
+    }
+
+    if(dialog->linesFunction() == BasicExportDialog::DrawStat){
+        if(dialog->drawStatStrategy() == BasicExportDialog::OutOfRangePoint){
+            QList<QPoint> stops;
+            int prevToMax = 1;
+
+            for(int i(0); i < m_lines.size(); ++i){
+                stops << m_lines[i].from() << m_lines[i].to();
+
+                if(i != m_lines.size() -1)
+                    stops << QPoint(-1, SCREEN_HEIGHT);
+            }
+
+            for(int l(1); l < stops.size(); l += 254){
+                int toMax(0);
+
+                code += "{";
+                for(int k(l -1); k < l + 254 && k < stops.size(); ++k){
+                    code +=  QString::number(stops[k].x() +1) + (k == l + 253 || k == stops.size() -1? "" : ",");
+                    toMax++;
+                }
+                code += "->List " + QString::number(dialog->linesListX()) + "<br>";
+
+                code += "{";
+                for(int k(l -1); k < l + 254 && k < stops.size(); ++k)
+                    code +=  QString::number(SCREEN_HEIGHT - stops[k].y()) + (k == l + 253 || k == stops.size() -1? "" : ",");
+                code += "->List " + QString::number(dialog->linesListY()) + "<br>";
+
+                if(prevToMax != toMax)
+                    code += QString::number(toMax) + "->Tomax<br>";
+                prevToMax = toMax;
+
+                code += "Graph(X,Y)=(List " + QString::number(dialog->linesListX()) + "[T,List " + QString::number(dialog->linesListY()) + "[T<br>";
+            }
+        }
+        else{
+            code += "2->Tomax<br>";
+
+            for(int i(0); i < m_lines.size(); ++i){
+                code += "{" + QString::number(m_lines[i].from().x() +1) + "," + QString::number(m_lines[i].to().x() +1);
+                code += "->List " + QString::number(dialog->linesListX()) + "<br>";
+
+                code += "{" + QString::number(SCREEN_HEIGHT - m_lines[i].from().y()) + "," + QString::number(SCREEN_HEIGHT - m_lines[i].to().y());
+                code += "->List " + QString::number(dialog->linesListY()) + "<br>";
+
+                code += "Graph(X,Y)=(List " + QString::number(dialog->linesListX()) + "[T,List " + QString::number(dialog->linesListY()) + "[T<br>";
+            }
+        }
     }
 
     return code;

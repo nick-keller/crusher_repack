@@ -11,6 +11,16 @@ QString Line::getCode()
     return "F-Line " + QString::number(m_p1.x()) + "," + QString::number(m_p1.y()) + "," + QString::number(m_p2.x()) + "," + QString::number(m_p2.y()) + "\n";
 }
 
+QString Line::getFLineCode()
+{
+    QString code;
+    QTextStream stream(&code);
+
+    stream << "F-Line " << m_p1.x() +1 << "," << SCREEN_HEIGHT - m_p1.y() << "," << m_p2.x() +1 << "," << SCREEN_HEIGHT - m_p2.y();
+
+    return code;
+}
+
 int Line::weight() const
 {
     if(m_weight != -1)

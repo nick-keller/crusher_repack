@@ -41,6 +41,7 @@ private:
     bool rectHasExclusivePixel(IntMap& map, Rect rect);
 
     QString getRectsCode(BasicExportDialog*);
+    QString getLinesCode(BasicExportDialog*);
     QString getDotsCode(BasicExportDialog*);
 
     IntMap getIntMap();

@@ -10,6 +10,8 @@ public:
     Line(int x1, int y1, int x2, int y2);
 
     QString getCode();
+    QString getFLineCode();
+
     int weight() const;
     QPoint from() {return m_p1;}
     QPoint to() {return m_p2;}
